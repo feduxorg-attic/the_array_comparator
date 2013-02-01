@@ -8,6 +8,7 @@ group :test do
   gem 'simplecov'
   gem 'aruba'
   gem 'fuubar'
+  gem 'ffaker'
 end
 
 group :documentation do
@@ -24,7 +25,6 @@ group :development do
   gem 'awesome_print'
   gem 'travis-lint'
   gem 'activesupport'
-  gem 'ffaker'
   gem 'fuubar'
   gem 'churn'
 end
