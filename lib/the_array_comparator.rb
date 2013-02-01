@@ -1,3 +1,6 @@
+require 'active_support/core_ext/object/blank'
+require 'set'
+
 require 'the_array_comparator/version'
 require 'the_array_comparator/exceptions'
 require 'the_array_comparator/strategies/base'
@@ -10,7 +13,7 @@ require 'the_array_comparator/strategies/contains_not'
 require 'the_array_comparator/strategies/is_equal'
 require 'the_array_comparator/strategies/is_not_equal'
 require 'the_array_comparator/comparator'
-require 'active_support/core_ext/object/blank'
+
 
 module TheArrayComparator
   Comparator.register :contains_all, Strategies::ContainsAll
