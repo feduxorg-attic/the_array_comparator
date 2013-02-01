@@ -1,0 +1,16 @@
+.$*$
+.bundle
+coverage/
+doc/yardoc/
+*.gem
+!.git*
+nohup*
+*.old
+*.out
+pkg/
+pkg/*
+.rvmrc
+*.s??
+tmp/
+doc/*
+.yardoc/
