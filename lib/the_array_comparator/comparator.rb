@@ -60,7 +60,10 @@ module TheArrayComparator
     def add_probe(data,type,keywords,exceptions=[])
       raise Exceptions::UnknownProbeType, "Unknown probe type \":#{type}\" given. Did you register it in advance?" unless Comparator.comparators.has_key?(type)
 
-      @checks << Comparator.comparators[type].add_probe(data,keywords,exceptions)
+      probe = Comparator.comparators[type].add_probe(data,keywords,exceptions)
+      @checks << probe
+
+      probe
     end
 
     # Run all probes
@@ -70,6 +73,31 @@ module TheArrayComparator
     #   'false'. If all are true, the result will be true.
     def success?
       @checks.all? { |c| c.success? }
+    end
+
+    # Delete probe
+    #
+    # @param [Integer] number
+    #   the index of the probe which should be deleted
+    def delete_probe(number)
+      if @checks[number]
+        @checks.delete_at(number) 
+      else
+        raise Exceptions::ProbeDoesNotExist, "You tried to delete a probe, which does not exist!"
+      end
+    end
+
+    # Delete the last probe added
+    def delete_last_probe
+      delete_probe(-1)
+    end
+
+    # List all added probes
+    #
+    # @return [Array]
+    #   all available probes
+    def list_probes
+      @checks
     end
   end
 end

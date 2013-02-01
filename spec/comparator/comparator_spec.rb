@@ -105,4 +105,54 @@ describe Comparator do
     expect(result).to eq(true)
   end
 
+  it "list all added probes" do
+    comparator = Comparator.new
+    data = []
+    keywords = []
+
+    probe = comparator.add_probe data , :contains_any, keywords
+    list = comparator.list_probes.first
+
+    expect(list).to eq(probe)
+  end
+
+  it "deletes the n-th probe" do
+    comparator = Comparator.new
+    data = []
+    keywords = []
+
+    test_comps = []
+
+    test_comps << comparator.add_probe(data , :contains_any, keywords)
+    comparator.add_probe(data , :contains_any, keywords)
+    test_comps << comparator.add_probe(data , :contains_any, keywords)
+    comparator.delete_probe(1)
+
+    list = comparator.list_probes
+    expect(list).to eq(test_comps)
+  end
+
+  it "raises an error if a user tries to delete an unexisting probe" do
+    comparator = Comparator.new
+
+    expect {
+      comparator.delete_last_probe
+    }.to raise_error Exceptions::ProbeDoesNotExist
+  end
+
+  it "deletes the last probe" do
+    comparator = Comparator.new
+    data = []
+    keywords = []
+
+    test_comps = []
+
+    test_comps << comparator.add_probe(data , :contains_any, keywords)
+    test_comps << comparator.add_probe(data , :contains_any, keywords)
+    comparator.add_probe(data , :contains_any, keywords)
+    comparator.delete_last_probe
+
+    list = comparator.list_probes
+    expect(list).to eq(test_comps)
+  end
 end
