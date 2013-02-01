@@ -25,16 +25,24 @@ Currently the following strategies are supported
     <th>Description</th>
   </tr>
   <tr>
-    <td>:contains</td>
-    <td>True if the given keywords are part of the data</td>
+    <td>:contains_all</td>
+    <td>True if all of the given keywords are part of the data</td>
+  </tr>
+  <tr>
+    <td>:contains_any</td>
+    <td>True if any of the given keywords are part of the data</td>
   </tr>
   <tr>
     <td>:not_contains</td>
     <td>True if the given keywords are not part of the data</td>
   </tr>
   <tr>
-    <td>:contains_substring</td>
+    <td>:contains_all_as_substring</td>
     <td>True if all given keywords are a substring of an data element</td>
+  </tr>
+  <tr>
+    <td>:contains_any_as_substring</td>
+    <td>True if any given keyword are a substring of an data element</td>
   </tr>
   <tr>
     <td>:not_contains_substring</td>
