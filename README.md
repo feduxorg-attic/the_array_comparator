@@ -106,13 +106,13 @@ puts result #should be false
 If you wish to write your own comparators you can do so. Just register those classes with a keyword.
 
 ```ruby
-TheArrayComparator::Comparator.register :contains, Strategies::MyContains
+TheArrayComparator::Comparator.register :my_contains, Strategies::MyContains
 ```
 
 ## Contributing
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+Please see CONTRIBUTIONS.md
+
+## Copyright
+
+(c) 2013 Max Meyer. All rights reserved. Please also see LICENSE.md
