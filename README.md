@@ -61,32 +61,44 @@ Currently the following strategies are supported
 ### Simple example
 
 ```ruby
-comparator = Comparator.new
-data = %w{ a b c d}
-keyword_overlap = %w{ a }
-keyword_no_overlap = %w{ e }
+require 'the_array_comparator'
+comparator = TheArrayComparator::Comparator.new
+data = %w{ a b c d }
+keyword_overlap = %w{ a b }
 
-comparator.add_probe data , :contains , keyword_overlap
-comparator.add_probe data , :not_contains , keyword_no_overlap
+comparator.add_probe data , :contains_all , keyword_overlap
 
 result = comparator.success?
-expect(result).to eq(false)
+puts result #should be true
+```
 
+### Example with substrings
+
+```ruby
+require 'the_array_comparator'
+comparator = TheArrayComparator::Comparator.new
+data = %w{ acd b }
+keyword_overlap = %w{ cd b }
+
+comparator.add_probe data , :contains_all_as_substring, keyword_overlap 
+
+result = comparator.success?
+puts result #should be true
 ```
 
 ### Example with exceptions
 
 ```ruby
-comparator = Comparator.new
-data = %w{ ab c d}
-keyword_overlap = %w{ a }
-exceptions = %w{ ab }
+require 'the_array_comparator'
+comparator = TheArrayComparator::Comparator.new
+data = %w{ acd b }
+keyword_overlap = %w{ a b }
+exceptions = %w{ cd }
 
-comparator.add_probe data , :contains_substring , keyword_overlap
-comparator.add_probe data , :not_contains_substring , keyword_overlap, exceptions
+comparator.add_probe data , :contains_all_as_substring, keyword_overlap, exceptions
 
-  result = comparator.success?
-expect(result).to eq(true)
+result = comparator.success?
+puts result #should be false
 ```
 
 ### Extend the library
