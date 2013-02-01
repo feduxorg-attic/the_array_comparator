@@ -1,6 +1,5 @@
 source :rubygems
 
-# Specify your gem's dependencies in workplace-letter_generator.gemspec
 gemspec 
 
 group :test do

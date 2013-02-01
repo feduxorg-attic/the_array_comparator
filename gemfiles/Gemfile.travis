@@ -1,7 +1,5 @@
 source :rubygems
 
-# Specify your gem's dependencies in workplace-letter_generator.gemspec
-#gemspec path: '../command_exec.gemspec'
 gemspec path: '../'
 
 group :test do
