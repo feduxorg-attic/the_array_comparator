@@ -6,12 +6,12 @@ unless ENV['TRAVIS_CI'] == 'true'
   require 'pry'
   require 'debugger'
   require 'ap'
+  require 'ffaker'
+  require 'benchmark'
 end
 
 require 'stringio'
 require 'tempfile'
-require 'benchmark'
-require 'ffaker'
 
 require 'active_support/core_ext/object/blank'
 require 'active_support/core_ext/numeric/time'
