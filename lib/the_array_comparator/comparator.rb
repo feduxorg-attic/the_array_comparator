@@ -55,7 +55,7 @@ module TheArrayComparator
     # @param [Array] exceptions (optional)
     #   exception, should not be considered as match
     #
-    # @raise Exceptions::UnknownProbeType
+    # @raise [Exceptions::UnknownProbeType]
     #   if a unknown strategy is given (needs to be registered first)
     def add_probe(data,type,keywords,exceptions=[])
       raise Exceptions::UnknownProbeType, "Unknown probe type \":#{type}\" given. Did you register it in advance?" unless Comparator.comparators.has_key?(type)
@@ -63,6 +63,11 @@ module TheArrayComparator
       @checks << Comparator.comparators[type].add_probe(data,keywords,exceptions)
     end
 
+    # Run all probes
+    #
+    # @return [TrueClass, FalseClass]
+    #   the result of all probes. if at least one fails the result will be
+    #   'false'. If all are true, the result will be true.
     def success?
       @checks.all? { |c| c.success? }
     end

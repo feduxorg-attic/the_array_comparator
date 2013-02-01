@@ -15,6 +15,7 @@ require 'the_array_comparator/strategies/is_not_equal'
 require 'the_array_comparator/comparator'
 
 
+# main module
 module TheArrayComparator
   Comparator.register :contains_all, Strategies::ContainsAll
   Comparator.register :contains_any, Strategies::ContainsAny
