@@ -64,7 +64,6 @@ module TheArrayComparator
     end
 
     def success?
-
       @checks.all? { |c| c.success? }
     end
   end
