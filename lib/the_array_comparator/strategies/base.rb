@@ -33,7 +33,7 @@ module TheArrayComparator
 
       # Check the keywords with the data
       #
-      # @info
+      # @note
       #   needs to be implemented by the concrete strategy
       # @raise [RuntimeError]
       #   error when not implemented by strategy
