@@ -14,21 +14,16 @@ module TheArrayComparator
 
       # Create a new instance of strategy
       #
-      # @param [Array] data
-      #   the data which will be searched
-      #
-      # @param [Set] keywords
-      #   what is the needle to look for
-      #
-      # @param [Set] exceptions
-      #   are there any things which should be not considered as match
+      # @param [Sample] sample
+      #    the probe which should be used for the check
       #
       # @return [Object] 
       #   the strategy
-      def initialize(data=[],keywords=Set.new,exceptions=Set.new)
-        @data = data
-        @keywords = Set.new(keywords)
-        @exceptions = Set.new(exceptions)
+      def initialize(sample)
+        @data = sample.data
+        @keywords = sample.keywords
+        @exceptions = sample.exceptions
+        @tag = sample.tag
       end
 
       # Check the keywords with the data

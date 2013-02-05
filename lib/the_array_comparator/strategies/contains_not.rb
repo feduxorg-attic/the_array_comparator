@@ -9,18 +9,8 @@ module TheArrayComparator
       
       # Create a new instance of strategy
       #
-      # @param [Array] data
-      #   the data which will be searched
-      #
-      # @param [Array] keywords
-      #   what is the needle to look for
-      #
-      # @param [Array] exceptions
-      #   are there any things which should be not considered as match
-      #
-      # @return [ContainsWithSubstringSearch] 
-      #   the strategy
-      def initialize(data=[],keywords=Set.new, exceptions=Set.new)
+      # @see Base
+      def initialize(sample)
         super
       end
 

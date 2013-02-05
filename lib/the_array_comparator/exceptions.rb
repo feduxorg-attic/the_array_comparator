@@ -1,4 +1,7 @@
+# the main module
 module TheArrayComparator
+  # exceptions which are going to be raised under
+  # certain conditions
   module Exceptions 
     # Used when one tries to add an unknown 
     # probe type to check for

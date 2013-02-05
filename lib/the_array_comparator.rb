@@ -3,6 +3,7 @@ require 'set'
 
 require 'the_array_comparator/version'
 require 'the_array_comparator/exceptions'
+require 'the_array_comparator/sample'
 require 'the_array_comparator/strategies/base'
 require 'the_array_comparator/strategies/contains_all_with_substring_search'
 require 'the_array_comparator/strategies/contains_any_with_substring_search'
