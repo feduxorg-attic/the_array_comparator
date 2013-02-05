@@ -15,7 +15,7 @@ module TheArrayComparator
     #   description of the probe
     attr_accessor :keywords, :data, :exceptions, :tag
 
-    def initialize(keywords,data,exceptions,tag)
+    def initialize(keywords=[],data=[],exceptions=[],tag=nil)
       @keywords = keywords
       @data = data
       @exceptions = exceptions
