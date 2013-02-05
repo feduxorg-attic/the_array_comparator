@@ -1,3 +1,4 @@
+#enconding: utf-8
 require 'spec_helper'
 
 describe Strategies::ContainsAll do
