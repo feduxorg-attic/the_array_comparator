@@ -71,13 +71,25 @@ module TheArrayComparator
       return check
     end
 
+    def result
+      r = [true]
+      @checks.each do |c| 
+        unless c.success?
+          r = [ false , c ]
+          break
+        end
+      end
+
+      r
+    end
+
     # Run all probes
     #
     # @return [TrueClass, FalseClass]
     #   the result of all probes. if at least one fails the result will be
     #   'false'. If all are true, the result will be true.
     def success?
-      @checks.all? { |c| c.success? }
+      result.shift
     end
 
     # Delete probe

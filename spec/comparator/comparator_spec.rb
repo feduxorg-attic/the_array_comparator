@@ -156,4 +156,32 @@ describe Comparator do
     list = comparator.list_probes
     expect(list).to eq(test_comps)
   end
+
+  it "tells you the result of the check" do
+    comparator = Comparator.new
+    data = %w{ a b c d }
+    keyword_overlap = %w{ a b }
+    keyword_no_overlap = %w{ e }
+
+    comparator.add_probe data , :contains_all , keyword_overlap
+    comparator.add_probe data , :not_contains , keyword_no_overlap
+
+    comparator.success?
+    result = comparator.result
+    expect(result.shift).to eq(true)
+  end
+
+  it "tells you which check has failed and made the whole thing failed" do
+    comparator = Comparator.new
+    data = %w{ a b c d }
+    keyword_successfull = %w{ a b }
+    keyword_failed = %w{ e }
+
+    comparator.add_probe data , :contains_all , keyword_successfull
+    c = comparator.add_probe data , :contains_all , keyword_failed, tag: 'this is a failed sample'
+
+    comparator.success?
+    result = comparator.result
+    expect(result.pop).to eq(c)
+  end
 end
