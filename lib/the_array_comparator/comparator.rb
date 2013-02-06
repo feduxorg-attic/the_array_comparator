@@ -59,8 +59,12 @@ module TheArrayComparator
     #   if a unknown strategy is given (needs to be registered first)
     def add_probe(data,type,keywords,options={})
       raise Exceptions::UnknownProbeType, "Unknown probe type \":#{type}\" given. Did you register it in advance?" unless Comparator.comparators.has_key?(type)
+      opts = {
+        exceptions: [],
+        tag:'',
+      }.merge options
 
-      sample = Sample.new(data,keywords,options[:exceptions],options[:tag])
+      sample = Sample.new(data,keywords,opts[:exceptions],opts[:tag])
       probe = Comparator.comparators[type].add_probe(sample)
       @checks << probe
 

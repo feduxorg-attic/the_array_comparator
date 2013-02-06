@@ -100,7 +100,7 @@ describe Comparator do
     exceptions = %w{ ab }
 
     comparator.add_probe data , :contains_any_as_substring , keyword_overlap
-    comparator.add_probe data , :not_contains_substring , keyword_overlap, exceptions
+    comparator.add_probe data , :not_contains_substring , keyword_overlap, :exceptions => exceptions
 
     result = comparator.success?
     expect(result).to eq(true)

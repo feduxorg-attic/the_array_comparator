@@ -14,7 +14,7 @@ describe Sample do
       exceptions = %w{ exceptions }
       tag = 'this is a tag'
 
-      sample = Sample.new(keywords, data, exceptions,tag)
+      sample = Sample.new(data, keywords, exceptions, tag)
 
       expect(sample.data).to eq(data)
       expect(sample.keywords).to eq(keywords)

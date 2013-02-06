@@ -1,5 +1,8 @@
-class SampleDouble < Struct.new(:keywords,:data,:exceptions,:tag)
-  def initialize(keywords=[],data=[],exceptions=[],tag=nil)
+class SampleDouble 
+
+  attr_accessor :data, :keywords, :exceptions,:tag
+
+  def initialize(data=[],keywords=[],exceptions=[],tag=nil)
     @keywords = keywords
     @data = data
     @exceptions = exceptions
