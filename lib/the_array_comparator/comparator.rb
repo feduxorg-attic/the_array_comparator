@@ -65,10 +65,10 @@ module TheArrayComparator
       }.merge options
 
       sample = Sample.new(data,keywords,opts[:exceptions],opts[:tag])
-      probe = Comparator.comparators[type].add_probe(sample)
-      @checks << probe
+      check = Comparator.comparators[type].add_probe(sample)
+      @checks << check
 
-      probe
+      return check
     end
 
     # Run all probes
