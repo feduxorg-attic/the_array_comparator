@@ -72,15 +72,9 @@ module TheArrayComparator
     end
 
     def result
-      r = [true]
-      @checks.each do |c| 
-        unless c.success?
-          r = [ false , c ]
-          break
-        end
-      end
+      @checks.each { |c| return [ false , c ] unless c.success? }
 
-      r
+      [ true ]
     end
 
     # Run all probes
