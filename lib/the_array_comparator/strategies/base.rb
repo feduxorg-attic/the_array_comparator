@@ -28,7 +28,7 @@ module TheArrayComparator
       # @raise [RuntimeError]
       #   error when not implemented by strategy
       def success?
-        raise
+        raise Exceptions::IncompatibleComparator, "The chosen comparator is incompatible, Please check the documentation for comparator strategies on how to build a compatible one."
       end
 
       private 
