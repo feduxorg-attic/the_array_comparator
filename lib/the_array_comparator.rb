@@ -6,6 +6,7 @@ require 'forwardable'
 
 require 'the_array_comparator/version'
 require 'the_array_comparator/exceptions'
+require 'the_array_comparator/cache'
 require 'the_array_comparator/sample'
 require 'the_array_comparator/check'
 require 'the_array_comparator/result'
