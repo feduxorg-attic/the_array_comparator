@@ -12,7 +12,7 @@ describe Comparator do
 
     expect {
       Comparator.register(:is_eqal_new, comparator_klass) 
-    }.to_not raise_error
+    }.to_not raise_error Exceptions::IncompatibleComparator
   end
 
   it "fails when registering a not suitable class" do
@@ -20,7 +20,7 @@ describe Comparator do
     comparator.stub(:sucessasdf).and_return(true)
     expect {
       Comparator.register(:is_eqal_new, comparator) 
-    }.to raise_error
+    }.to raise_error Exceptions::IncompatibleComparator
   end
   
   it "let you add check to check for" do
@@ -31,6 +31,16 @@ describe Comparator do
     expect {
       testrun.add_check data , :contains_all , keyword
     }.to_not raise_error
+  end
+
+  it "fails if an unknown check is given" do
+    testrun = Comparator.new
+    data = %w{ a b c d}
+    keyword = %w{ a }
+
+    expect {
+      testrun.add_check data , :contains_all_abc , keyword
+    }.to raise_error Exceptions::UnknownCheckType
   end
 
   it "let you register and use classes" do
@@ -138,7 +148,7 @@ describe Comparator do
 
     expect {
       comparator.delete_last_check
-    }.to raise_error Exceptions::ProbeDoesNotExist
+    }.to raise_error Exceptions::CheckDoesNotExist
   end
 
   it "deletes the last check" do

@@ -55,10 +55,10 @@ module TheArrayComparator
     # @param [Array] exceptions (optional)
     #   exception, should not be considered as match
     #
-    # @raise [Exceptions::UnknownProbeType]
+    # @raise [Exceptions::UnknownCheckType]
     #   if a unknown strategy is given (needs to be registered first)
     def add_check(data,type,keywords,options={})
-      raise Exceptions::UnknownProbeType, "Unknown check type \":#{type}\" given. Did you register it in advance?" unless Comparator.comparators.has_key?(type)
+      raise Exceptions::UnknownCheckType, "Unknown check type \":#{type}\" given. Did you register it in advance?" unless Comparator.comparators.has_key?(type)
       opts = {
         exceptions: [],
         tag:'',
@@ -94,7 +94,7 @@ module TheArrayComparator
       if @checks[number]
         @checks.delete_at(number) 
       else
-        raise Exceptions::ProbeDoesNotExist, "You tried to delete a check, which does not exist!"
+        raise Exceptions::CheckDoesNotExist, "You tried to delete a check, which does not exist!"
       end
     end
 

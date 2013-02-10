@@ -5,7 +5,7 @@ module TheArrayComparator
   module Exceptions 
     # Used when one tries to add an unknown 
     # probe type to check for
-    class UnknownProbeType < Exception
+    class UnknownCheckType < Exception
     end
 
     # Used if one tries to register an
@@ -15,7 +15,7 @@ module TheArrayComparator
 
     # Used if one tries to delete an
     # unexisting probe
-    class ProbeDoesNotExist < Exception
+    class CheckDoesNotExist < Exception
     end
   end
 end
