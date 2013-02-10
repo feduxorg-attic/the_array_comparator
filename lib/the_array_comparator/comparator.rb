@@ -66,8 +66,8 @@ module TheArrayComparator
 
       sample = Sample.new(data,keywords,opts[:exceptions],opts[:tag])
       strategy_klass = Comparator.comparators[type]
-
       check = Check.new(strategy_klass,sample)
+
       @checks << check
       return check
     end
