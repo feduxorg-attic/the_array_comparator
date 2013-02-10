@@ -42,7 +42,8 @@ end}
 
     sh "git add #{version_file}" 
     sh "git commit -m 'version bump to #{new_version}'" 
-    sh "git tag data_uri-#{new_version}" 
+    project = 'the_array_comparator'
+    sh "git tag #{project}-v#{new_version}" 
   end
 
   desc 'show version of library'
