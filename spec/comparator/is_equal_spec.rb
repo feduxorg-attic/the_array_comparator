@@ -9,31 +9,31 @@ describe Strategies::IsEqual do
 
   it "fails if keywords are empty" do
     sample = SampleDouble.new(data,[])
-    comparator = Strategies::IsEqual.add_check(sample)
+    comparator = Strategies::IsEqual.new(sample)
     expect(comparator.success?).to eq(false)
   end
 
   it "fails if data is empty" do
     sample = SampleDouble.new([],keywords_no_overlap)
-    comparator = Strategies::IsEqual.add_check(sample)
+    comparator = Strategies::IsEqual.new(sample)
     expect(comparator.success?).to eq(false)
   end
 
   it "is successfull if both keywords and data are empty" do
     sample = SampleDouble.new([],[])
-    comparator = Strategies::IsEqual.add_check(sample)
+    comparator = Strategies::IsEqual.new(sample)
     expect(comparator.success?).to eq(true)
   end
 
   it "is successfull if data and keywords are equal" do
     sample = SampleDouble.new(data,keywords_overlap)
-    comparator = Strategies::IsEqual.add_check(sample)
+    comparator = Strategies::IsEqual.new(sample)
     expect(comparator.success?).to eq(true)
   end
 
   it "fails if data and keywords are different" do
     sample = SampleDouble.new(data,keywords_no_overlap)
-    comparator = Strategies::IsEqual.add_check(sample)
+    comparator = Strategies::IsEqual.new(sample)
     expect(comparator.success?).to eq(false)
   end
 
@@ -43,7 +43,7 @@ describe Strategies::IsEqual do
     sample = SampleDouble.new(data,keywords_no_overlap,%w{a})
 
     msg = capture(:stderr) do
-      Strategies::IsEqual.add_check(sample)
+      Strategies::IsEqual.new(sample)
     end
 
     expect(msg).to eq(needed_msg)

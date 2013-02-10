@@ -3,12 +3,11 @@ require 'spec_helper'
 
 describe Comparator do
   it "let you register classes" do
-    comparator_instance = double('TestComparator')
+    comparator_instance = double('TestComparatorInstance')
     comparator_instance.stub(:success?).and_return(true)
 
-    comparator_klass = double('TestComparator')
+    comparator_klass = double('TestComparatorClass')
     comparator_klass.stub(:new).and_return(comparator_instance)
-    comparator_klass.stub(:add_check).and_return(comparator_instance)
 
     expect {
       Comparator.register(:is_eqal_new, comparator_klass) 
@@ -16,10 +15,13 @@ describe Comparator do
   end
 
   it "fails when registering a not suitable class" do
-    comparator = double('TestComparator')
-    comparator.stub(:sucessasdf).and_return(true)
+    comparator_instance = double('TestComparatorInstance')
+    comparator_instance.stub(:successasdf?).and_return(true)
+
+    comparator_klass = double('TestComparatorClass')
+    comparator_klass.stub(:new).and_return(comparator_instance)
     expect {
-      Comparator.register(:is_eqal_new, comparator) 
+      Comparator.register(:is_eqal_new, comparator_klass) 
     }.to raise_error Exceptions::IncompatibleComparator
   end
   
@@ -44,12 +46,11 @@ describe Comparator do
   end
 
   it "let you register and use classes" do
-    comparator_instance = double('TestComparator')
+    comparator_instance = double('TestComparatorInstance')
     comparator_instance.stub(:success?).and_return(true)
 
-    comparator_klass = double('TestComparator')
+    comparator_klass = double('TestComparatorClass')
     comparator_klass.stub(:new).and_return(comparator_instance)
-    comparator_klass.stub(:add_check).and_return(comparator_instance)
 
     Comparator.register(:new_comp, comparator_klass) 
 

@@ -4,13 +4,6 @@ module TheArrayComparator
   module Strategies
     #base class for strategies
     class Base
-      class << self
-        # Add a new probe to check for 
-        # @see initialize
-        def add_check(*args,&block)
-          new(*args,&block)
-        end
-      end
 
       # Create a new instance of strategy
       #

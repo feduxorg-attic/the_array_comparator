@@ -24,10 +24,10 @@ module TheArrayComparator
       def register(name,klass)
         @comparators ||= {}
 
-        if klass.respond_to?(:add_check) and klass.new.respond_to?(:success?)
+        if klass.new.respond_to?(:success?)
           @comparators[name.to_sym] = klass
         else
-          raise Exceptions::IncompatibleComparator, "Registering #{klass} failed. It does not support \"add_check\"-class- and \"success?\"-instance-method"
+          raise Exceptions::IncompatibleComparator, "Registering #{klass} failed. It does not support \"success?\"-instance-method"
         end
       end
     end
@@ -65,7 +65,7 @@ module TheArrayComparator
       }.merge options
 
       sample = Sample.new(data,keywords,opts[:exceptions],opts[:tag])
-      check = Comparator.comparators[type].add_check(sample)
+      check = Comparator.comparators[type].new(sample)
       @checks << check
 
       return check

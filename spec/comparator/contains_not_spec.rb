@@ -9,31 +9,31 @@ describe Strategies::ContainsNot do
 
   it "is successfull if keywords are empty" do
     sample = SampleDouble.new(data,[])
-    comparator = Strategies::ContainsNot.add_check(sample)
+    comparator = Strategies::ContainsNot.new(sample)
     expect(comparator.success?).to eq(true)
   end
 
   it "is successfull if data is empty" do
     sample = SampleDouble.new([],keywords_no_overlap)
-    comparator = Strategies::ContainsNot.add_check(sample)
+    comparator = Strategies::ContainsNot.new(sample)
     expect(comparator.success?).to eq(true)
   end
 
   it "fails if both keywords and data are empty" do
     sample = SampleDouble.new([],[])
-    comparator = Strategies::ContainsNot.add_check(sample)
+    comparator = Strategies::ContainsNot.new(sample)
     expect(comparator.success?).to eq(false)
   end
 
   it "is successfull if there's a data overlap" do
     sample = SampleDouble.new(data,keywords_overlap)
-    comparator = Strategies::ContainsNot.add_check(sample)
+    comparator = Strategies::ContainsNot.new(sample)
     expect(comparator.success?).to eq(false)
   end
 
   it "doesn't find something if there's no overlap" do
     sample = SampleDouble.new(data,keywords_no_overlap)
-    comparator = Strategies::ContainsNot.add_check(sample)
+    comparator = Strategies::ContainsNot.new(sample)
     expect(comparator.success?).to eq(true)
   end
 
