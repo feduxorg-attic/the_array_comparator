@@ -8,7 +8,7 @@ module TheArrayComparator
       @sample = sample
     end
 
-    def from_check
+    def of_checks
       return true if @sample.blank?
       false
     end

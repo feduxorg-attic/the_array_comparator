@@ -14,7 +14,7 @@ describe Result do
 
   it "returns true if _no_ sample is defined" do
     result = Result.new()
-    expect(result.from_check).to eq(true)
+    expect(result.of_checks).to eq(true)
   end
 
   it "returns false if sample is defined" do
@@ -25,7 +25,7 @@ describe Result do
     sample = sample_klass.new(data,keywords,exceptions,tag)
 
     result = Result.new(sample)
-    expect(result.from_check).to eq(false)
+    expect(result.of_checks).to eq(false)
   end
 
 end

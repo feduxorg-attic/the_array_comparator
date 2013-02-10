@@ -73,9 +73,9 @@ module TheArrayComparator
     end
 
     def result
-      @checks.each { |c| return [ false , c ] unless c.success? }
+      @checks.each { |c| return Result.new(c.sample) unless c.success? }
 
-      [ true ]
+      Result.new
     end
 
     # Run all checks
@@ -84,7 +84,7 @@ module TheArrayComparator
     #   the result of all checks. if at least one fails the result will be
     #   'false'. If all are true, the result will be true.
     def success?
-      result.shift
+      result.of_checks
     end
 
     # Delete check

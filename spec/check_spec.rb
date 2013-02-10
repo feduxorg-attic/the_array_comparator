@@ -27,4 +27,10 @@ describe Check do
     result = check.failed?
     expect(result).to eq(false)
   end
+
+  it "is able to return the sample of the check" do
+    sample = sample_klass.new
+    check = Check.new(strategy_klass,sample)
+    expect(check.sample).to eq(sample)
+  end
 end

@@ -179,7 +179,7 @@ describe Comparator do
 
     comparator.success?
     result = comparator.result
-    expect(result.shift).to eq(true)
+    expect(result.of_checks).to eq(true)
   end
 
   it "tells you which check has failed and made the whole thing failed" do
@@ -193,6 +193,6 @@ describe Comparator do
 
     comparator.success?
     result = comparator.result
-    expect(result.pop).to eq(c)
+    expect(result.failed_sample).to eq(c.sample)
   end
 end
