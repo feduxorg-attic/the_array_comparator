@@ -10,7 +10,7 @@ module TheArrayComparator
       # Create a new instance of strategy
       #
       # @see Base
-      def initialize(data=[],keywords=Set.new, exceptions=Set.new)
+      def initialize(sample=Sample.new)
         super
 
         warning_unsupported_exceptions

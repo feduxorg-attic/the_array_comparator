@@ -23,11 +23,12 @@ module TheArrayComparator
       #   Raise exception if an incompatible comparator class is given
       def register(name,klass)
         @comparators ||= {}
+        debugger
 
-        if klass.respond_to?(:add_probe) and klass.new.respond_to?(:success?)
+        if klass.respond_to?(:add_check) and klass.new.respond_to?(:success?)
           @comparators[name.to_sym] = klass
         else
-          raise Exceptions::IncompatibleComparator, "Registering #{klass} failed. It does not support \"add_probe\"-class- and \"success?\"-instance-method"
+          raise Exceptions::IncompatibleComparator, "Registering #{klass} failed. It does not support \"add_check\"-class- and \"success?\"-instance-method"
         end
       end
     end
@@ -41,10 +42,10 @@ module TheArrayComparator
       @checks = []
     end
 
-    # Add a probe to test against
+    # Add a check to test against
     #
     # @param [Array] data
-    #   the data which should be used as probe, will be passed to the concrete comparator strategy
+    #   the data which should be used as check, will be passed to the concrete comparator strategy
     #
     # @param [Symbol] type
     #   the comparator strategy (needs to be registered first)
@@ -55,16 +56,62 @@ module TheArrayComparator
     # @param [Array] exceptions (optional)
     #   exception, should not be considered as match
     #
-    # @raise Exceptions::UnknownProbeType
+    # @raise [Exceptions::UnknownProbeType]
     #   if a unknown strategy is given (needs to be registered first)
-    def add_probe(data,type,keywords,exceptions=[])
-      raise Exceptions::UnknownProbeType, "Unknown probe type \":#{type}\" given. Did you register it in advance?" unless Comparator.comparators.has_key?(type)
+    def add_check(data,type,keywords,options={})
+      raise Exceptions::UnknownCheckType, "Unknown check type \":#{type}\" given. Did you register it in advance?" \
+        unless Comparator.comparators.has_key?(type)
 
-      @checks << Comparator.comparators[type].add_probe(data,keywords,exceptions)
+      opts = {
+        exceptions: [],
+        tag:'',
+      }.merge options
+
+      sample = Sample.new(data,keywords,opts[:exceptions],opts[:tag])
+      check = Comparator.comparators[type].add_check(sample)
+      @checks << check
+
+      return check
     end
 
+    def result
+      @checks.each { |c| return [ false , c ] unless c.success? }
+
+      [ true ]
+    end
+
+    # Run all checks
+    #
+    # @return [TrueClass, FalseClass]
+    #   the result of all checks. if at least one fails the result will be
+    #   'false'. If all are true, the result will be true.
     def success?
-      @checks.all? { |c| c.success? }
+      result.shift
+    end
+
+    # Delete check
+    #
+    # @param [Integer] number
+    #   the index of the sample which should be deleted
+    def delete_checks(number)
+      if @checks[number]
+        @checks.delete_at(number) 
+      else
+        raise Exceptions::CheckDoesNotExist, "You tried to delete a check, which does not exist!"
+      end
+    end
+
+    # Delete the last check added
+    def delete_last_check
+      delete_check(-1)
+    end
+
+    # List all added checks
+    #
+    # @return [Array]
+    #   all available checks
+    def list_checks
+      @checks
     end
   end
 end

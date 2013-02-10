@@ -1,4 +1,6 @@
+#enconding: utf-8
 require 'spec_helper'
+require 'strategies_helper'
 
 describe Strategies::ContainsAll do
   let(:data) { %w{ a b c e} }
@@ -7,32 +9,38 @@ describe Strategies::ContainsAll do
   let(:multiple_keywords_with_one_no_overlap) { %w{ a b cd } }
 
   it "fails if keywords are empty" do
-    comparator = Strategies::ContainsAll.add_probe(data,[])
+    sample = SampleDouble.new(data,[])
+    comparator = Strategies::ContainsAll.add_check(sample)
     expect(comparator.success?).to eq(false)
   end
 
   it "fails if data is empty" do
-    comparator = Strategies::ContainsAll.add_probe([],keywords_no_overlap)
+    sample = SampleDouble.new([],keywords_no_overlap)
+    comparator = Strategies::ContainsAll.add_check(sample)
     expect(comparator.success?).to eq(false)
   end
 
   it "is successfull if both keywords and data are empty" do
-    comparator = Strategies::ContainsAll.add_probe([],[])
+    sample = SampleDouble.new([],[])
+    comparator = Strategies::ContainsAll.add_check(sample)
     expect(comparator.success?).to eq(true)
   end
 
   it "is successfull when there's a data overlap" do
-    comparator = Strategies::ContainsAll.add_probe(data,keywords_overlap)
+    sample = SampleDouble.new(data,keywords_overlap)
+    comparator = Strategies::ContainsAll.add_check(sample)
     expect(comparator.success?).to eq(true)
   end
 
   it "doesn't find something if there's no overlap" do
-    comparator = Strategies::ContainsAll.add_probe(data,keywords_no_overlap)
+    sample = SampleDouble.new(data,keywords_no_overlap)
+    comparator = Strategies::ContainsAll.add_check(sample)
     expect(comparator.success?).to eq(false)
   end
 
   it "fails if not all keywords can be found within the data" do
-    comparator = Strategies::ContainsAll.add_probe(data,multiple_keywords_with_one_no_overlap)
+    sample = SampleDouble.new(data,multiple_keywords_with_one_no_overlap)
+    comparator = Strategies::ContainsAll.add_check(sample)
     expect(comparator.success?).to eq(false)
   end
 
