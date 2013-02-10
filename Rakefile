@@ -11,7 +11,7 @@ unless ENV['TRAVIS_CI'] == 'true'
 end
 
 YARD::Rake::YardocTask.new() do |y|
-  y.options << '--verbose'
+#  y.options << '--verbose'
 end
 
 desc 'start tmux'

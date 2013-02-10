@@ -1,4 +1,4 @@
-# API documentation
+# API Guide
 
 This very brief documentation should give you a good starting point on how to discover the API:
 
