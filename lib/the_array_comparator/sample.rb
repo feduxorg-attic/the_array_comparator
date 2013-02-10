@@ -17,10 +17,23 @@ module TheArrayComparator
     #   description of the probe
     attr_accessor :data, :keywords, :exceptions, :tag
 
-    def initialize(data=[],keywords=[],exceptions=[],tag=nil)
-      @keywords = keywords
-      @data = data
-      @exceptions = exceptions
+    # New sample
+    #
+    # @param [Array] data ([])
+    #  the data to look for keywords
+    #
+    # @param [Set] keywords (Set.new)
+    #   the keywords (singular values/arrays will be transformed to a set)
+    #
+    # @param [Set] exceptions (Set.new)
+    #   the exceptions  (singular values/arrays will be transformed to a set)
+    #
+    # @param [String] tag (nil)
+    #   a tag to identify a sample
+    def initialize(data=[],keywords=Set.new,exceptions=Set.new,tag=nil)
+      @keywords = Set.new( [ *keywords ] )
+      @data = *data
+      @exceptions = Set.new( [ *exceptions ] )
       @tag = tag
     end
 

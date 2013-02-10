@@ -17,8 +17,22 @@ describe Sample do
       sample = Sample.new(data, keywords, exceptions, tag)
 
       expect(sample.data).to eq(data)
-      expect(sample.keywords).to eq(keywords)
-      expect(sample.exceptions).to eq(exceptions)
+      expect(sample.keywords).to eq(Set.new(keywords))
+      expect(sample.exceptions).to eq(Set.new(exceptions))
       expect(sample.tag).to eq(tag)
   end
+
+  it "takes singular values and return them into arrays" do
+      data = 'data'
+      keywords = 'keywords'
+      exceptions = 'exceptions'
+
+      sample = Sample.new(data, keywords, exceptions)
+
+      expect(sample.data).to eq([ data ])
+      expect(sample.keywords).to eq(Set.new( [ keywords ] ) )
+      expect(sample.exceptions).to eq(Set.new( [ exceptions ] ) )
+  end
+
+
 end

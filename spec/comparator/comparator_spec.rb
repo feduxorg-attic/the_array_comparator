@@ -91,7 +91,7 @@ describe Comparator do
     expect(result).to eq(true)
   end
   
-  it "fails if a least one subtest fails", :test => true do
+  it "fails if a least one subtest fails" do
     comparator = Comparator.new
     data = %w{ a b c d }
     keyword_overlap = %w{ a }
@@ -182,7 +182,7 @@ describe Comparator do
     expect(result.of_checks).to eq(true)
   end
 
-  it "tells you which check has failed and made the whole thing failed" do
+  it "tells you which check has failed and made the whole thing failed" , :test => true do
     comparator = Comparator.new
     data = %w{ a b c d }
     keyword_successfull = %w{ a b }
