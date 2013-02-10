@@ -9,7 +9,7 @@ Can be used to compare to arrays with a consistent api.
 
 Add this line to your application's Gemfile:
 
-    gem 'comparator'
+    gem 'the_array_comparator'
 
 And then execute:
 
@@ -17,7 +17,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install comparator
+    $ gem install the_array_comparator
 
 ## Usage
 
