@@ -115,11 +115,11 @@ TheArrayComparator::Comparator.register :my_contains, Strategies::MyContains
 ## Further reading
 
 Please the the full api-documentation on [rdoc info](http://rdoc.info/github/maxmeyer/the_array_comparator/frames) for further reading.
-I just give you a brief overview of all the available methods. There's also a brief [guide](API-GUIDE) about howto discover the API.
+I just give you a brief overview of all the available methods. There's also a brief [guide](API-GUIDE.md) about howto discover the API.
 
 ## Contributing
 
-Please see [CONTRIBUTIONS.md](CONTRIBUTIONS).
+Please see [CONTRIBUTIONS.md](CONTRIBUTIONS.md).
 
 ## Copyright
 
