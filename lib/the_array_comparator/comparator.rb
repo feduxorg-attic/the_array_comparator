@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 # the main module
 module TheArrayComparator
   # the main comparator shell class
@@ -52,8 +54,14 @@ module TheArrayComparator
     # @param [Array] keywords
     #   what to look for in the data, will be passed to the concrete comparator strategy
     #
-    # @param [Array] exceptions (optional)
+    # @param [Hash] options 
     #   exception, should not be considered as match
+    #
+    # @option options [Hash] exceptions
+    #   the exceptions from keywords
+    #
+    # @option options [String] tag
+    #   a tag to identify the check
     #
     # @raise [Exceptions::UnknownCheckType]
     #   if a unknown strategy is given (needs to be registered first)

@@ -10,7 +10,9 @@ unless ENV['TRAVIS_CI'] == 'true'
   require 'active_support/core_ext/string/strip'
 end
 
-YARD::Rake::YardocTask.new do; end
+YARD::Rake::YardocTask.new() do |y|
+  y.options << '--verbose'
+end
 
 desc 'start tmux'
 task :terminal do

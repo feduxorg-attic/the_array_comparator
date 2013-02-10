@@ -2,14 +2,14 @@
 
 # the main module
 module TheArrayComparator
-  # the check result
+  # the check 
   class Check
     extend Forwardable
 
     # Delegates success? to check
     def_delegator :@check, :success?
 
-    # @!attribute [r]
+    # @!attribute [r] sample
     #   the sample of the check
     attr_reader :sample
 
@@ -23,6 +23,5 @@ module TheArrayComparator
     def success?
       @check.success?
     end
-
   end
 end

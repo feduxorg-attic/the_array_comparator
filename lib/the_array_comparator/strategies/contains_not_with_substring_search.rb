@@ -1,4 +1,4 @@
-# encoding: utf-8
+#encoding: utf-8
 
 # the main module
 module TheArrayComparator

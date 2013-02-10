@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 # the main module
 module TheArrayComparator
   # class holding the data for the comparism
