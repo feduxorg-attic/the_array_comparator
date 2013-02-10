@@ -12,7 +12,7 @@ module TheArrayComparator
       #
       # @return [Object] 
       #   the strategy
-      def initialize(sample)
+      def initialize(sample=Sample.new)
         @data = sample.data
         @keywords = sample.keywords
         @exceptions = sample.exceptions

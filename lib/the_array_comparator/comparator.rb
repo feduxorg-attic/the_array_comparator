@@ -65,9 +65,10 @@ module TheArrayComparator
       }.merge options
 
       sample = Sample.new(data,keywords,opts[:exceptions],opts[:tag])
-      check = Comparator.comparators[type].new(sample)
-      @checks << check
+      strategy_klass = Comparator.comparators[type]
 
+      check = Check.new(strategy_klass,sample)
+      @checks << check
       return check
     end
 
