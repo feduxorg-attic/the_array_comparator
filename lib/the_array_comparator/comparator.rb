@@ -80,6 +80,10 @@ module TheArrayComparator
       return check
     end
 
+    # The result of all checks defined
+    #
+    # @return [Result] 
+    #   the result class with all the data need for further analysis
     def result
       @checks.each { |c| return Result.new(c.sample) unless c.success? }
 
