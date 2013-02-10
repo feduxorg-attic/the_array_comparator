@@ -22,12 +22,6 @@ describe Check do
     expect(result).to eq(true)
   end
 
-  it "is false if the check failed" do
-    check = Check.new(strategy_klass,sample_klass.new)
-    result = check.failed?
-    expect(result).to eq(false)
-  end
-
   it "is able to return the sample of the check" do
     sample = sample_klass.new
     check = Check.new(strategy_klass,sample)

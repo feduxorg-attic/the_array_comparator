@@ -24,11 +24,5 @@ module TheArrayComparator
       @check.success?
     end
 
-    # Checks for failure
-    def failed?
-      not success?
-    end
-
-
   end
 end
