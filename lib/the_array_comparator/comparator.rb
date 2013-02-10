@@ -24,10 +24,10 @@ module TheArrayComparator
       def register(name,klass)
         @comparators ||= {}
 
-        if klass.respond_to?(:add_probe) and klass.new.respond_to?(:success?)
+        if klass.respond_to?(:add_check) and klass.new.respond_to?(:success?)
           @comparators[name.to_sym] = klass
         else
-          raise Exceptions::IncompatibleComparator, "Registering #{klass} failed. It does not support \"add_probe\"-class- and \"success?\"-instance-method"
+          raise Exceptions::IncompatibleComparator, "Registering #{klass} failed. It does not support \"add_check\"-class- and \"success?\"-instance-method"
         end
       end
     end
@@ -41,10 +41,10 @@ module TheArrayComparator
       @checks = []
     end
 
-    # Add a probe to test against
+    # Add a check to test against
     #
     # @param [Array] data
-    #   the data which should be used as probe, will be passed to the concrete comparator strategy
+    #   the data which should be used as check, will be passed to the concrete comparator strategy
     #
     # @param [Symbol] type
     #   the comparator strategy (needs to be registered first)
@@ -57,15 +57,15 @@ module TheArrayComparator
     #
     # @raise [Exceptions::UnknownProbeType]
     #   if a unknown strategy is given (needs to be registered first)
-    def add_probe(data,type,keywords,options={})
-      raise Exceptions::UnknownProbeType, "Unknown probe type \":#{type}\" given. Did you register it in advance?" unless Comparator.comparators.has_key?(type)
+    def add_check(data,type,keywords,options={})
+      raise Exceptions::UnknownProbeType, "Unknown check type \":#{type}\" given. Did you register it in advance?" unless Comparator.comparators.has_key?(type)
       opts = {
         exceptions: [],
         tag:'',
       }.merge options
 
       sample = Sample.new(data,keywords,opts[:exceptions],opts[:tag])
-      check = Comparator.comparators[type].add_probe(sample)
+      check = Comparator.comparators[type].add_check(sample)
       @checks << check
 
       return check
@@ -77,37 +77,37 @@ module TheArrayComparator
       [ true ]
     end
 
-    # Run all probes
+    # Run all checks
     #
     # @return [TrueClass, FalseClass]
-    #   the result of all probes. if at least one fails the result will be
+    #   the result of all checks. if at least one fails the result will be
     #   'false'. If all are true, the result will be true.
     def success?
       result.shift
     end
 
-    # Delete probe
+    # Delete check
     #
     # @param [Integer] number
-    #   the index of the probe which should be deleted
-    def delete_probe(number)
+    #   the index of the check which should be deleted
+    def delete_check(number)
       if @checks[number]
         @checks.delete_at(number) 
       else
-        raise Exceptions::ProbeDoesNotExist, "You tried to delete a probe, which does not exist!"
+        raise Exceptions::ProbeDoesNotExist, "You tried to delete a check, which does not exist!"
       end
     end
 
-    # Delete the last probe added
-    def delete_last_probe
-      delete_probe(-1)
+    # Delete the last check added
+    def delete_last_check
+      delete_check(-1)
     end
 
-    # List all added probes
+    # List all added checks
     #
     # @return [Array]
-    #   all available probes
-    def list_probes
+    #   all available checks
+    def list_checks
       @checks
     end
   end

@@ -9,7 +9,7 @@ describe "benchmark for strategies" do
     let(:data) { generate_testdata(keywords: keywords, count_of_data: count_of_lines) }
 
     it "is fast", :bm => true do
-      comparator = Strategies::ContainsWithSubstringSearch.add_probe(data,keywords)
+      comparator = Strategies::ContainsWithSubstringSearch.add_check(data,keywords)
       time_taken = Benchmark.realtime { comparator.success? }
       expect(time_taken).to be < 1
     end
@@ -20,7 +20,7 @@ describe "benchmark for strategies" do
     let(:data) { generate_testdata(keywords: keywords, count_of_data: count_of_lines) }
 
     it "is fast", :bm => true do
-      comparator = Strategies::Contains.add_probe(data,keywords)
+      comparator = Strategies::Contains.add_check(data,keywords)
       time_taken = Benchmark.realtime { comparator.success? }
       expect(time_taken).to be < 1
     end

@@ -7,7 +7,7 @@ module TheArrayComparator
       class << self
         # Add a new probe to check for 
         # @see initialize
-        def add_probe(*args,&block)
+        def add_check(*args,&block)
           new(*args,&block)
         end
       end

@@ -69,7 +69,7 @@ comparator = TheArrayComparator::Comparator.new
 data = %w{ a b c d }
 keyword_overlap = %w{ a b }
 
-comparator.add_probe data , :contains_all , keyword_overlap
+comparator.add_check data , :contains_all , keyword_overlap
 
 result = comparator.success?
 puts result #should be true
@@ -83,7 +83,7 @@ comparator = TheArrayComparator::Comparator.new
 data = %w{ acd b }
 keyword_overlap = %w{ cd b }
 
-comparator.add_probe data , :contains_all_as_substring, keyword_overlap 
+comparator.add_check data , :contains_all_as_substring, keyword_overlap 
 
 result = comparator.success?
 puts result #should be true
@@ -98,7 +98,7 @@ data = %w{ acd b }
 keyword_overlap = %w{ a b }
 exceptions = %w{ cd }
 
-comparator.add_probe data , :contains_all_as_substring, keyword_overlap, exceptions
+comparator.add_check data , :contains_all_as_substring, keyword_overlap, exceptions
 
 result = comparator.success?
 puts result #should be false
