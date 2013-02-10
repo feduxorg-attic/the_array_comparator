@@ -8,8 +8,11 @@ Comparator                           # Main class dispatching the work
 -- Check, Result, Sample             # Helper classes for easier testing
 |
 -- Strategies
-   |
-   -- ContainsAll                    # Strategies doing the hard work:
-   |                                 # compare data with keywords and
-   -- ...                            # return the result
+|  |
+|  -- ContainsAll                    # Strategies doing the hard work:
+|  |                                 # compare data with keywords and
+|  -- ...                            # return the result
+|
+-- Cache                             # Cache checks for easier retrieval
+ 
 ```
