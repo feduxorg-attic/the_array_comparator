@@ -2,6 +2,15 @@
 require 'spec_helper'
 
 describe Comparator do
+  cache_klass = Class.new do
+    def success?
+      true
+    end
+
+    def initialize(sample=nil)
+    end
+  end
+
   it "let you register classes" do
     comparator_instance = double('TestComparatorInstance')
     comparator_instance.stub(:success?).and_return(true)

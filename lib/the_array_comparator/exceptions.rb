@@ -12,6 +12,11 @@ module TheArrayComparator
     # incompatible comparator
     class IncompatibleComparator < Exception
     end
+    #
+    # Used if one tries to register an
+    # incompatible caching strategy
+    class IncompatibleCachingStrategy < Exception
+    end
 
     # Used if one tries to delete an
     # unexisting probe

@@ -3,64 +3,69 @@
 # the main module
 module TheArrayComparator
   #caching class
-  class Cache
+  module Cache
 
-    # Create cache
-    def initialize
-      @cache = []
-      @new_objects = false
+    # Variable to store caching strategies
+    @caching_strategies = {}
+
+    # Variable to store available caches
+    @caches = {}
+
+    class << self
+     #
+      # @!attribute [rw] command
+      #   Return all available caching strategies
+      attr_reader :caching_strategies
+
+      # Register a new comparator strategy
+      #
+      # @param [String,Symbol] name
+      #   The name which can be used to refer to the registered caching strategy
+      #
+      # @param [Comparator] klass
+      #   The caching strategy class which should be registered
+      #
+      # @raise Exceptions::IncompatibleCachingStrategy
+      #   Raise exception if an incompatible comparator class is given
+      def register(name,klass)
+
+        must_have_methods = [
+          :add,
+          :clear,
+          :stored_objects,
+          :delete_objects,
+          :new_objects?,
+          :fetch_object,
+        ]
+
+        if must_have_methods.all? { |m| klass.new.respond_to?(m) }
+          @caching_strategies[name.to_sym] = klass
+        else
+          raise Exceptions::IncompatibleCachingStrategy, "Registering #{klass} failed. It does not support #{must_have_methods.join("-, ")}-instance-methods"
+        end
+      end
+
+      # Retrieve cache 
+      #
+      # @param [Symbol] cache
+      #   the cache to be used
+      def [](cache)
+        return @caches[cache] if @caches.has_key(cache)
+
+        nil
+      end
+
+      # Create new cache
+      #
+      # @param [Symbol] cache
+      #   the cache to be created
+      #
+      # @param [Cache] strategy
+      #   the cache strategy to be used
+      def new(cache,strategy=AnonymousCache)
+        @caches[cache] = strategy.new
+      end
     end
 
-    # Add object to cache
-    #
-    # @param [Object] obj
-    #   the object which should be added to the cache
-    #
-    # @return [Object]
-    #   the object which has beed added
-    def add(obj)
-      @cache << obj
-      @new_objects = true
-
-      obj
-    end
-
-    # Return all stored objects
-    #
-    # @return [Array]
-    #   the cache
-    def stored_objects
-      @new_objects = false
-      @cache
-    end
-
-    # Clear the cache (delete all objects)
-    def clear
-      @cache = []
-    end
-
-    # Are there new objects
-    #
-    # @return [TrueClass,FalseClass]
-    #   the result of the check
-    def new_objects?
-      @new_objects
-    end
-
-    # Delete an object from cache by number
-    #
-    # @return
-    #   the deleted object
-    def delete_object(num)
-      @cache.delete_at(num)
-    end
-
-    # Request an object from cache by number
-    #
-    # @return
-    #   the requested object
-    def fetch_object(num)
-      @cache[num]
-    end
   end
 end

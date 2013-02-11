@@ -1,1 +1,2 @@
-* Add clear (last) probe
+* Cache -> only check if there are __no__ new objects
+

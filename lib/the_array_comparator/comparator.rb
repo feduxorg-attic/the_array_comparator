@@ -5,7 +5,7 @@ module TheArrayComparator
   # the main comparator shell class
   class Comparator
 
-    # VARIABLE to store strategies
+    # Variable to store strategies
     @comparators = {}
     class << self
 
@@ -24,8 +24,6 @@ module TheArrayComparator
       # @raise Exceptions::IncompatibleComparator
       #   Raise exception if an incompatible comparator class is given
       def register(name,klass)
-        @comparators ||= {}
-
         if klass.new.respond_to?(:success?)
           @comparators[name.to_sym] = klass
         else
@@ -39,8 +37,12 @@ module TheArrayComparator
     #
     # @return [Comparator]
     #   a new comparator
-    def initialize
-      @cache = Cache.new
+    def initialize(cache_checks=nil,cache_result=nil)
+      if cache_checks
+        @cache_checks = cache_checks
+      else
+        @cache_checks = Cache[:checks].new
+      @cache_checks = cache
     end
 
     # Add a check to test against
