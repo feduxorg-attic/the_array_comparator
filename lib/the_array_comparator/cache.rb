@@ -33,8 +33,8 @@ module TheArrayComparator
           :add,
           :clear,
           :stored_objects,
-          :delete_objects,
           :new_objects?,
+          :delete_object,
           :fetch_object,
         ]
 
@@ -50,22 +50,23 @@ module TheArrayComparator
       # @param [Symbol] cache
       #   the cache to be used
       def [](cache)
-        return @caches[cache] if @caches.has_key(cache)
+        raise Exceptions::CacheDoesNotExist, "Unknown cache \":#{cache}\" given. Did you create it in advance?"  unless @caches.has_key?(cache)
 
-        nil
+        @caches[cache]
       end
 
-      # Create new cache
+      # Add a new cache
       #
       # @param [Symbol] cache
       #   the cache to be created
       #
-      # @param [Cache] strategy
+      # @param [Symbol] strategy
       #   the cache strategy to be used
-      def new(cache,strategy=AnonymousCache)
-        @caches[cache] = strategy.new
+      def add(cache,strategy)
+        raise Exceptions::UnknownCachingStrategy, "Unknown caching strategy \":#{strategy}\" given. Did you register it in advance?"  unless Cache.caching_strategies.has_key?(strategy)
+
+        @caches[cache] = @caching_strategies[strategy].new 
       end
     end
-
   end
 end

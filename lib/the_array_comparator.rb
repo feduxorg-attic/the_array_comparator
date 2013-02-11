@@ -34,4 +34,7 @@ module TheArrayComparator
   Comparator.register :not_contains_substring, Strategies::ContainsNotWithSubstringSearch
   Comparator.register :is_equal, Strategies::IsEqual
   Comparator.register :is_not_equal, Strategies::IsNotEqual
+
+  Cache.register :anonymous_cache, Cache::AnonymousCache
+  Cache.register :single_value_cache, Cache::SingleValueCache
 end

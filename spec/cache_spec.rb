@@ -6,7 +6,7 @@ describe Cache do
       :add,
       :clear,
       :stored_objects,
-      :delete_objects,
+      :delete_object,
       :new_objects?,
       :fetch_object,
     ]
@@ -23,14 +23,40 @@ describe Cache do
   end
 
   it "fails when registering a not suitable class" do
-    comparator_instance = double('TestComparatorInstance')
-    comparator_instance.stub(:successasdf?).and_return(true)
+    cache_instance = double('TestCacheInstance')
+    cache_instance.stub(:blub) 
 
-    comparator_klass = double('TestComparatorClass')
-    comparator_klass.stub(:new).and_return(comparator_instance)
+    caching_strategy_klass = double('TestCachingStrategyClass')
+    caching_strategy_klass.stub(:new).and_return(cache_instance)
+
     expect {
-      Comparator.register(:is_eqal_new, comparator_klass) 
-    }.to raise_error Exceptions::IncompatibleComparator
+      Cache.register(:test_cache, caching_strategy_klass) 
+    }.to raise_error Exceptions::IncompatibleCachingStrategy
+  end
+
+  it "let you add a cache" do
+    Cache.add(:test, :anonymous_cache)
+    data = %w{ a b c d}
+
+    expect {
+      Cache[:test].add data
+    }.to_not raise_error
+  end
+
+  it "fails if an unknown cache strategy is given" do
+    data = %w{ a b c d}
+
+    expect {
+      Cache.add(:test, :anonymous_cache_abc)
+    }.to raise_error Exceptions::UnknownCachingStrategy 
+  end
+
+  it "fails if an unknown cache is given" do
+    data = %w{ a b c d}
+
+    expect {
+      cache[:test123].add data
+    }.to raise_error
   end
 
 end

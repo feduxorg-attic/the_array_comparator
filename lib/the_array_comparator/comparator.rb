@@ -37,12 +37,9 @@ module TheArrayComparator
     #
     # @return [Comparator]
     #   a new comparator
-    def initialize(cache_checks=nil,cache_result=nil)
-      if cache_checks
-        @cache_checks = cache_checks
-      else
-        @cache_checks = Cache[:checks].new
-      @cache_checks = cache
+    def initialize(cache_checks=[],cache_result=[])
+      Cache.add(:checks, :anonymous_cache)
+      Cache.add(:result, :single_value_cache)
     end
 
     # Add a check to test against
@@ -78,7 +75,7 @@ module TheArrayComparator
       strategy_klass = Comparator.comparators[type]
       check = Check.new(strategy_klass,sample)
 
-      @cache.add check
+      Cache[:checks].add check
     end
 
     # The result of all checks defined
@@ -86,7 +83,7 @@ module TheArrayComparator
     # @return [Result] 
     #   the result class with all the data need for further analysis
     def result
-      @cache.stored_objects.each { |c| return Result.new(c.sample) unless c.success? }
+      Cache[:checks].stored_objects.each { |c| return Result.new(c.sample) unless c.success? }
 
       Result.new
     end
@@ -105,8 +102,8 @@ module TheArrayComparator
     # @param [Integer] number
     #   the index of the check which should be deleted
     def delete_check(number)
-      if @cache.fetch_object(number)
-        @cache.delete_object(number) 
+      if Cache[:checks].fetch_object(number)
+        Cache[:checks].delete_object(number) 
       else
         raise Exceptions::CheckDoesNotExist, "You tried to delete a check, which does not exist!"
       end
@@ -122,7 +119,7 @@ module TheArrayComparator
     # @return [Array]
     #   all available checks
     def list_checks
-      @cache.stored_objects
+      Cache[:checks].stored_objects
     end
   end
 end

@@ -3,9 +3,14 @@ module TheArrayComparator
   # exceptions which are going to be raised under
   # certain conditions
   module Exceptions 
-    # Used when one tries to add an unknown 
-    # probe type to check for
+    # Used if one tries to add an unknown 
+    # check type 
     class UnknownCheckType < Exception
+    end
+    #
+    # Used if one tries to add an unknown 
+    # caching strategy
+    class UnknownCachingStrategy < Exception
     end
 
     # Used if one tries to register an
@@ -21,6 +26,11 @@ module TheArrayComparator
     # Used if one tries to delete an
     # unexisting probe
     class CheckDoesNotExist < Exception
+    end
+    
+    # Used if one tries to use an unexisting
+    # cache
+    class CacheDoesNotExist < Exception
     end
   end
 end
