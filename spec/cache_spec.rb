@@ -18,7 +18,7 @@ describe Cache do
     caching_strategy_klass.stub(:new).and_return(cache_instance)
 
     expect {
-      Comparator.register(:is_eqal_new, comparator_klass) 
+      Cache.register(:test_cache, caching_strategy_klass) 
     }.to_not raise_error Exceptions::IncompatibleCachingStrategy
   end
 
