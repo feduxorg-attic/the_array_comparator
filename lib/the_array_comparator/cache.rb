@@ -65,7 +65,8 @@ module TheArrayComparator
       def add(cache,strategy)
         raise Exceptions::UnknownCachingStrategy, "Unknown caching strategy \":#{strategy}\" given. Did you register it in advance?"  unless Cache.caching_strategies.has_key?(strategy)
 
-        @caches[cache] = @caching_strategies[strategy].new 
+        @caches[cache.to_sym] = @caching_strategies[strategy.to_sym].new 
+        @caches[cache]
       end
     end
   end

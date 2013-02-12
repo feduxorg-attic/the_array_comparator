@@ -59,4 +59,11 @@ describe Cache do
     }.to raise_error
   end
 
+  it "returns the cache after adding it" do
+    cache = Cache.add(:test, :anonymous_cache)
+    data = %w{ a b c d}
+
+    expect( cache.class ).to be(Cache::AnonymousCache)
+  end
+
 end
