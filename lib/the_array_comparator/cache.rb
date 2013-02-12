@@ -28,8 +28,19 @@ module TheArrayComparator
       # @raise Exceptions::IncompatibleCachingStrategy
       #   Raise exception if an incompatible comparator class is given
       def register(name,klass)
+        if valid_strategy? klass
+          @caching_strategies[name.to_sym] = klass
+        else
+          raise Exceptions::IncompatibleCachingStrategy, "Registering #{klass} failed. It does not support #{must_have_methods.join("-, ")}-instance-methods"
+        end
+      end
 
-        must_have_methods = [
+      # Return all must have methods
+      #
+      # @return [Array]
+      #   the array of must have methods
+      def must_have_methods
+        [
           :add,
           :clear,
           :stored_objects,
@@ -37,12 +48,20 @@ module TheArrayComparator
           :delete_object,
           :fetch_object,
         ]
+      end
 
-        if must_have_methods.all? { |m| klass.new.respond_to?(m) }
-          @caching_strategies[name.to_sym] = klass
-        else
-          raise Exceptions::IncompatibleCachingStrategy, "Registering #{klass} failed. It does not support #{must_have_methods.join("-, ")}-instance-methods"
-        end
+      # Check if given klass is a valid
+      # caching strategy
+      #
+      # @param [Object] klass
+      #   the class to be checked
+      #
+      # @return [TrueClass,FalseClass]
+      #   the result of the check, true if valid 
+      #   klass is given
+      def valid_strategy?(klass)
+
+        must_have_methods.all? { |m| klass.new.respond_to?(m) }
       end
 
       # Retrieve cache 

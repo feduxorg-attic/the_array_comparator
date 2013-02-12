@@ -24,11 +24,34 @@ module TheArrayComparator
       # @raise Exceptions::IncompatibleComparator
       #   Raise exception if an incompatible comparator class is given
       def register(name,klass)
-        if klass.new.respond_to?(:success?)
+        if valid_strategy? klass
           @comparators[name.to_sym] = klass
         else
-          raise Exceptions::IncompatibleComparator, "Registering #{klass} failed. It does not support \"success?\"-instance-method"
+          raise Exceptions::IncompatibleComparator, "Registering #{klass} failed. It does not support \"#{must_have_methods.join("-, ")}\"-instance-method"
         end
+      end
+
+      # Return all must have methods
+      #
+      # @return [Array]
+      #   the array of must have methods
+      def must_have_methods
+        [
+          :success?,
+        ]
+      end
+
+      # Check if given klass is a valid
+      # caching strategy
+      #
+      # @param [Object] klass
+      #   the class to be checked
+      #
+      # @return [TrueClass,FalseClass]
+      #   the result of the check, true if valid 
+      #   klass is given
+      def valid_strategy?(klass)
+        must_have_methods.all? { |m| klass.new.respond_to?(m) }
       end
     end
 
