@@ -4,10 +4,14 @@
 module TheArrayComparator
   # the main comparator shell class
   class StrategyDispatcher
-
     @available_strategies = {}
 
     class << self
+
+      def available_strategies
+        binding.pry
+        @available_strategies
+      end
 
       def strategy_reader(name)
         class << self
@@ -28,6 +32,7 @@ module TheArrayComparator
       # @raise Exceptions::IncompatibleComparator
       #   Raise exception if an incompatible comparator class is given
       def register(name,klass)
+        available_strategies
         if valid_strategy? klass
           @available_strategies[name.to_sym] = klass
         else
