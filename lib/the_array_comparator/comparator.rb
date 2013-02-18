@@ -3,55 +3,19 @@
 # the main module
 module TheArrayComparator
   # the main comparator shell class
-  class Comparator
+  class Comparator > StrategyDispatcher
 
-    # Variable to store strategies
-    @comparators = {}
     class << self
-
-      # @!attribute [rw] command
-      #   Return all available comparator strategies
-      attr_accessor :comparators
-
-      # Register a new comparator strategy
-      #
-      # @param [String,Symbol] name
-      #   The name which can be used to refer to the registered strategy
-      #
-      # @param [Comparator] klass
-      #   The strategy class which should be registered
-      #
-      # @raise Exceptions::IncompatibleComparator
-      #   Raise exception if an incompatible comparator class is given
-      def register(name,klass)
-        if valid_strategy? klass
-          @comparators[name.to_sym] = klass
-        else
-          raise Exceptions::IncompatibleComparator, "Registering #{klass} failed. It does not support \"#{must_have_methods.join("-, ")}\"-instance-method"
-        end
+      # @see StrategyWrapper
+      def exception_invalid_strategy
+        Exceptions::IncompatibleComparator
       end
 
-      # Return all must have methods
-      #
-      # @return [Array]
-      #   the array of must have methods
-      def must_have_methods
+      # @see StrategyWrapper
+      def class_must_have_methods
         [
           :success?,
         ]
-      end
-
-      # Check if given klass is a valid
-      # caching strategy
-      #
-      # @param [Object] klass
-      #   the class to be checked
-      #
-      # @return [TrueClass,FalseClass]
-      #   the result of the check, true if valid 
-      #   klass is given
-      def valid_strategy?(klass)
-        must_have_methods.all? { |m| klass.new.respond_to?(m) }
       end
     end
 
@@ -61,8 +25,17 @@ module TheArrayComparator
     # @return [Comparator]
     #   a new comparator
     def initialize(cache_checks=[],cache_result=[])
-      Cache.add(:checks, :anonymous_cache)
-      Cache.add(:result, :single_value_cache)
+      if cache_checks.blank?
+        @cache_checks = Cache.add(:checks, :anonymous_cache)
+      else
+        @cache_checks = cache_checks
+      end
+
+      if cache_result.blank?
+        @cache_result = Cache.add(:result, :single_value_cache)
+      else
+        @cache_result = cache_result
+      end
     end
 
     # Add a check to test against
@@ -98,7 +71,7 @@ module TheArrayComparator
       strategy_klass = Comparator.comparators[type]
       check = Check.new(strategy_klass,sample)
 
-      Cache[:checks].add check
+      @cache_checks.add check
     end
 
     # The result of all checks defined
@@ -106,7 +79,7 @@ module TheArrayComparator
     # @return [Result] 
     #   the result class with all the data need for further analysis
     def result
-      Cache[:checks].stored_objects.each { |c| return Result.new(c.sample) unless c.success? }
+      @cache_checks.stored_objects.each { |c| return Result.new(c.sample) unless c.success? }
 
       Result.new
     end
@@ -125,8 +98,8 @@ module TheArrayComparator
     # @param [Integer] number
     #   the index of the check which should be deleted
     def delete_check(number)
-      if Cache[:checks].fetch_object(number)
-        Cache[:checks].delete_object(number) 
+      if @cache_checks.fetch_object(number)
+        @cache_checks.delete_object(number) 
       else
         raise Exceptions::CheckDoesNotExist, "You tried to delete a check, which does not exist!"
       end
@@ -142,7 +115,7 @@ module TheArrayComparator
     # @return [Array]
     #   all available checks
     def list_checks
-      Cache[:checks].stored_objects
+      @cache_checks.stored_objects
     end
   end
 end

@@ -32,5 +32,10 @@ module TheArrayComparator
     # cache
     class CacheDoesNotExist < Exception
     end
+
+    # Use if one forgot to implement that
+    # method
+    class MustHaveMethodNotImplemented < Exception
+    end
   end
 end

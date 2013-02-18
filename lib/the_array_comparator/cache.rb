@@ -3,7 +3,7 @@
 # the main module
 module TheArrayComparator
   #caching class
-  module Cache
+  class Cache < StrategyDispatcher
 
     # Variable to store caching strategies
     @caching_strategies = {}
