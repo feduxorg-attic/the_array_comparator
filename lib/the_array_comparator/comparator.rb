@@ -3,7 +3,7 @@
 # the main module
 module TheArrayComparator
   # the main comparator shell class
-  class Comparator > StrategyDispatcher
+  class Comparator < StrategyDispatcher
 
     class << self
       # @see StrategyWrapper
