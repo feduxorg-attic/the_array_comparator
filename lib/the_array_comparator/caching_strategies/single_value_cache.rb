@@ -3,9 +3,9 @@
 # the main module
 module TheArrayComparator
   #caching strategies
-  module Cache
+  module CachingStrategies
     #anonymous cache
-    class AnonymousCache
+    class SingleValueCache
 
       # Create cache
       def initialize
@@ -21,7 +21,7 @@ module TheArrayComparator
       # @return [Object]
       #   the object which has beed added
       def add(obj)
-        @cache << obj
+        @cache = [ obj ]
         @new_objects = true
 
         obj
@@ -53,16 +53,16 @@ module TheArrayComparator
       #
       # @return
       #   the deleted object
-      def delete_object(num)
-        @cache.delete_at(num)
+      def delete_object
+        @cache.delete_at(0)
       end
 
       # Request an object from cache by number
       #
       # @return
       #   the requested object
-      def fetch_object(num)
-        @cache[num]
+      def fetch_object
+        @cache[0]
       end
     end
   end

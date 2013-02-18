@@ -9,8 +9,9 @@ require 'the_array_comparator/exceptions'
 require 'the_array_comparator/sample'
 require 'the_array_comparator/check'
 require 'the_array_comparator/result'
-require 'the_array_comparator/cache/anonymous_cache'
-require 'the_array_comparator/cache/single_value_cache'
+require 'the_array_comparator/strategy_helper'
+require 'the_array_comparator/caching_strategies/anonymous_cache'
+require 'the_array_comparator/caching_strategies/single_value_cache'
 require 'the_array_comparator/cache'
 require 'the_array_comparator/strategies/base'
 require 'the_array_comparator/strategies/contains_all_with_substring_search'
@@ -35,6 +36,6 @@ module TheArrayComparator
   Comparator.register :is_equal, Strategies::IsEqual
   Comparator.register :is_not_equal, Strategies::IsNotEqual
 
-  Cache.register :anonymous_cache, Cache::AnonymousCache
-  Cache.register :single_value_cache, Cache::SingleValueCache
+  Cache.register :anonymous_cache, CachingStrategies::AnonymousCache
+  Cache.register :single_value_cache, CachingStrategies::SingleValueCache
 end
