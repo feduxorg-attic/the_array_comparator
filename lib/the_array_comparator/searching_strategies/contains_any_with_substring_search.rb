@@ -3,9 +3,9 @@
 # the main module
 module TheArrayComparator
   # the available strategies
-  module Strategies
+  module SearchingStrategies
     # strategy contains substring
-    class ContainsAllWithSubstringSearch < Base
+    class ContainsAnyWithSubstringSearch < Base
 
       # Create a new instance of strategy
       #
@@ -21,15 +21,9 @@ module TheArrayComparator
       def success?
         return true if @keywords.blank? and @data.blank?
 
-        #return true if @data.all? do |line| 
-        #  #does a keyword match and it is not an the exception list
-        #  binding.pry
-        #  @keywords.all?{ |k| line[k] } and not @exceptions.any?{ |e| line[e] }
-        #end
-
-        return true if @keywords.all? do |word| 
+        return true if @data.any? do |line| 
           #does a keyword match and it is not an the exception list
-          @data.any?{ |line| line[word] and not @exceptions.any?{ |e| line[e] } }
+          @keywords.any?{ |k| line[k] } and not @exceptions.any?{ |e| line[e] }
         end
 
         false

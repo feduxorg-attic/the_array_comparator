@@ -3,15 +3,17 @@
 # the main module
 module TheArrayComparator
   # the available strategies
-  module Strategies
-    # strategy not contains substring
-    class ContainsNotWithSubstringSearch < Base
-
+  module SearchingStrategies
+    #strategy is not equal
+    class IsNotEqual < Base
+      
       # Create a new instance of strategy
       #
       # @see Base
       def initialize(sample=Sample.new)
         super
+
+        warning_unsupported_exceptions
       end
 
       # Check the keywords with the data
@@ -19,12 +21,7 @@ module TheArrayComparator
       # @return [Boolean]
       #   The result of the check
       def success?
-        return false if @keywords.blank? and @data.blank?
-
-        return true if @data.all? do |line| 
-          #if a keyword is found, check if there's an exception
-          @keywords.none?{ |k| line[k] } or @exceptions.any?{ |e| line[e] }
-        end
+        return true if @keywords.to_a != @data
 
         false
       end

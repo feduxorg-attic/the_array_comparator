@@ -2,7 +2,7 @@
 require 'spec_helper'
 require 'strategies_helper'
 
-describe Strategies::ContainsAll do
+describe SearchingStrategies::ContainsAll do
   let(:data) { %w{ a b c e} }
   let(:keywords_overlap) { %w{ a } }
   let(:keywords_no_overlap) { %w{ d } }
@@ -10,37 +10,37 @@ describe Strategies::ContainsAll do
 
   it "fails if keywords are empty" do
     sample = SampleDouble.new(data,[])
-    comparator = Strategies::ContainsAll.new(sample)
+    comparator = SearchingStrategies::ContainsAll.new(sample)
     expect(comparator.success?).to eq(false)
   end
 
   it "fails if data is empty" do
     sample = SampleDouble.new([],keywords_no_overlap)
-    comparator = Strategies::ContainsAll.new(sample)
+    comparator = SearchingStrategies::ContainsAll.new(sample)
     expect(comparator.success?).to eq(false)
   end
 
   it "is successfull if both keywords and data are empty" do
     sample = SampleDouble.new([],[])
-    comparator = Strategies::ContainsAll.new(sample)
+    comparator = SearchingStrategies::ContainsAll.new(sample)
     expect(comparator.success?).to eq(true)
   end
 
   it "is successfull when there's a data overlap" do
     sample = SampleDouble.new(data,keywords_overlap)
-    comparator = Strategies::ContainsAll.new(sample)
+    comparator = SearchingStrategies::ContainsAll.new(sample)
     expect(comparator.success?).to eq(true)
   end
 
   it "doesn't find something if there's no overlap" do
     sample = SampleDouble.new(data,keywords_no_overlap)
-    comparator = Strategies::ContainsAll.new(sample)
+    comparator = SearchingStrategies::ContainsAll.new(sample)
     expect(comparator.success?).to eq(false)
   end
 
   it "fails if not all keywords can be found within the data" do
     sample = SampleDouble.new(data,multiple_keywords_with_one_no_overlap)
-    comparator = Strategies::ContainsAll.new(sample)
+    comparator = SearchingStrategies::ContainsAll.new(sample)
     expect(comparator.success?).to eq(false)
   end
 

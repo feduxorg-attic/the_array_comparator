@@ -3,7 +3,7 @@
 # the main module
 module TheArrayComparator
   # the available strategies
-  module Strategies
+  module SearchingStrategies
     #base class for strategies
     class Base
 

@@ -3,9 +3,9 @@
 # the main module
 module TheArrayComparator
   # the available strategies
-  module Strategies
-    #strategy is not equal
-    class IsNotEqual < Base
+  module SearchingStrategies
+    #strategy contains
+    class ContainsAll < Base
       
       # Create a new instance of strategy
       #
@@ -21,9 +21,14 @@ module TheArrayComparator
       # @return [Boolean]
       #   The result of the check
       def success?
-        return true if @keywords.to_a != @data
+        return true if @keywords.blank? and @data.blank?
+        return false if @keywords.blank? or @data.blank?
 
-        false
+        if ( @keywords - @data ).blank?
+          return true
+        else
+          return false
+        end
       end
     end
   end

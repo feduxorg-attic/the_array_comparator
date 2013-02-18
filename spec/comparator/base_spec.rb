@@ -2,10 +2,10 @@
 require 'spec_helper'
 require 'strategies_helper'
 
-describe Strategies::Base do
+describe SearchingStrategies::Base do
 
   it "raise an exception if api is not implemented" do
-    class TestStrategy < Strategies::Base
+    class TestStrategy < SearchingStrategies::Base
     end
 
     expect {

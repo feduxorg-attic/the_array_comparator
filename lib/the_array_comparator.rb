@@ -13,28 +13,28 @@ require 'the_array_comparator/strategy_dispatcher'
 require 'the_array_comparator/caching_strategies/anonymous_cache'
 require 'the_array_comparator/caching_strategies/single_value_cache'
 require 'the_array_comparator/cache'
-require 'the_array_comparator/strategies/base'
-require 'the_array_comparator/strategies/contains_all_with_substring_search'
-require 'the_array_comparator/strategies/contains_any_with_substring_search'
-require 'the_array_comparator/strategies/contains_all'
-require 'the_array_comparator/strategies/contains_any'
-require 'the_array_comparator/strategies/contains_not_with_substring_search'
-require 'the_array_comparator/strategies/contains_not'
-require 'the_array_comparator/strategies/is_equal'
-require 'the_array_comparator/strategies/is_not_equal'
+require 'the_array_comparator/searching_strategies/base'
+require 'the_array_comparator/searching_strategies/contains_all_with_substring_search'
+require 'the_array_comparator/searching_strategies/contains_any_with_substring_search'
+require 'the_array_comparator/searching_strategies/contains_all'
+require 'the_array_comparator/searching_strategies/contains_any'
+require 'the_array_comparator/searching_strategies/contains_not_with_substring_search'
+require 'the_array_comparator/searching_strategies/contains_not'
+require 'the_array_comparator/searching_strategies/is_equal'
+require 'the_array_comparator/searching_strategies/is_not_equal'
 require 'the_array_comparator/comparator'
 
 
 # main module
 module TheArrayComparator
-  Comparator.register :contains_all, Strategies::ContainsAll
-  Comparator.register :contains_any, Strategies::ContainsAny
-  Comparator.register :not_contains, Strategies::ContainsNot
-  Comparator.register :contains_all_as_substring, Strategies::ContainsAllWithSubstringSearch
-  Comparator.register :contains_any_as_substring, Strategies::ContainsAnyWithSubstringSearch
-  Comparator.register :not_contains_substring, Strategies::ContainsNotWithSubstringSearch
-  Comparator.register :is_equal, Strategies::IsEqual
-  Comparator.register :is_not_equal, Strategies::IsNotEqual
+  Comparator.register :contains_all, SearchingStrategies::ContainsAll
+  Comparator.register :contains_any, SearchingStrategies::ContainsAny
+  Comparator.register :not_contains, SearchingStrategies::ContainsNot
+  Comparator.register :contains_all_as_substring, SearchingStrategies::ContainsAllWithSubstringSearch
+  Comparator.register :contains_any_as_substring, SearchingStrategies::ContainsAnyWithSubstringSearch
+  Comparator.register :not_contains_substring, SearchingStrategies::ContainsNotWithSubstringSearch
+  Comparator.register :is_equal, SearchingStrategies::IsEqual
+  Comparator.register :is_not_equal, SearchingStrategies::IsNotEqual
 
   Cache.register :anonymous_cache, CachingStrategies::AnonymousCache
   Cache.register :single_value_cache, CachingStrategies::SingleValueCache
