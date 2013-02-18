@@ -4,17 +4,13 @@
 module TheArrayComparator
   # the main comparator shell class
   class StrategyDispatcher
-    @available_strategies = {}
 
     class << self
 
-      def available_strategies
-        binding.pry
-        @available_strategies
-      end
-
       def strategy_reader(name)
         class << self
+          instance_variable_set( :@available_strategies, {} )
+
           define_method name.to_sym do
             instance_variable_get :@available_strategies
           end
@@ -36,7 +32,7 @@ module TheArrayComparator
         if valid_strategy? klass
           @available_strategies[name.to_sym] = klass
         else
-          raise exception_invalid_strategy, "Registering #{klass} failed. It does not support \"#{class_must_have_methods.join("-, ")}\"-method"
+          raise exception_to_raise_for_invalid_strategy, "Registering #{klass} failed. It does not support \"#{class_must_have_methods.join("-, ")}\"-method"
         end
       end
 
@@ -44,7 +40,7 @@ module TheArrayComparator
       #
       # @note
       #   has to be implemented by concrete dispatcher -> otherwise exception
-      def exception_invalid_strategy
+      def exception_to_raise_for_invalid_strategy
         exception_if_not_implemented __method__
       end
 
@@ -79,12 +75,13 @@ module TheArrayComparator
       def each(&block)
         @available_strategies.each(block)
       end
+
+      private
+
+      def exception_if_not_implemented(m)
+        raise Exceptions::MustHaveMethodNotImplemented, "You forgot to implement the must have method \"#{m}\" in your strategy dispatcher #{self.name}"
+      end
     end
 
-    private
-
-    def exception_if_not_implemented(m)
-      raise MustHaveMethodNotImplemented, "You forgot to implement the must have method #{m}! in your strategy wrapper #{self.name}"
-    end
   end
 end

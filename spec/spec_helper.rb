@@ -28,7 +28,7 @@ require 'the_array_comparator/testing_helper/test_data'
 require 'the_array_comparator/testing_helper'
 
 RSpec.configure do |c|
-  c.treat_symbols_as_metadata_keys_with_true_values = true
+#  c.treat_symbols_as_metadata_keys_with_true_values = true
 #  c.filter_run_including :focus => true
 end
 

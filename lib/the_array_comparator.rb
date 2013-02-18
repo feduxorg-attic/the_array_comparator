@@ -27,15 +27,15 @@ require 'the_array_comparator/comparator'
 
 # main module
 module TheArrayComparator
-  Comparator.register :contains_all, SearchingStrategies::ContainsAll
-  Comparator.register :contains_any, SearchingStrategies::ContainsAny
-  Comparator.register :not_contains, SearchingStrategies::ContainsNot
-  Comparator.register :contains_all_as_substring, SearchingStrategies::ContainsAllWithSubstringSearch
-  Comparator.register :contains_any_as_substring, SearchingStrategies::ContainsAnyWithSubstringSearch
-  Comparator.register :not_contains_substring, SearchingStrategies::ContainsNotWithSubstringSearch
-  Comparator.register :is_equal, SearchingStrategies::IsEqual
-  Comparator.register :is_not_equal, SearchingStrategies::IsNotEqual
+  #Comparator.register :contains_all, SearchingStrategies::ContainsAll
+  #Comparator.register :contains_any, SearchingStrategies::ContainsAny
+  #Comparator.register :not_contains, SearchingStrategies::ContainsNot
+  #Comparator.register :contains_all_as_substring, SearchingStrategies::ContainsAllWithSubstringSearch
+  #Comparator.register :contains_any_as_substring, SearchingStrategies::ContainsAnyWithSubstringSearch
+  #Comparator.register :not_contains_substring, SearchingStrategies::ContainsNotWithSubstringSearch
+  #Comparator.register :is_equal, SearchingStrategies::IsEqual
+  #Comparator.register :is_not_equal, SearchingStrategies::IsNotEqual
 
-  Cache.register :anonymous_cache, CachingStrategies::AnonymousCache
-  Cache.register :single_value_cache, CachingStrategies::SingleValueCache
+  #Cache.register :anonymous_cache, CachingStrategies::AnonymousCache
+  #Cache.register :single_value_cache, CachingStrategies::SingleValueCache
 end
