@@ -91,7 +91,7 @@ module TheArrayComparator
 
     #internal reader
     def available_strategies
-      @available_strategies or raise Exceptions::WrongUsageOfLibrary, "You forgot to call \"super()\" in your initialize-method of your strategy dispatcher #{self.class.name}"
+      @available_strategies or raise Exceptions::WrongUsageOfLibrary, "You forgot to call \"super()\" in your \"initialize\"-method of your strategy dispatcher #{self.class.name}"
     end
 
     # Check if given klass is a valid
