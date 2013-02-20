@@ -2,6 +2,25 @@
 require 'spec_helper'
 
 describe StrategyDispatcher do
+  let(:dispatcher_klass) do
+    Class.new(StrategyDispatcher) do
+      def initialize; end
+
+      def class_must_have_methods
+        [
+          :success?
+        ]
+      end
+
+      def exception_to_raise_for_invalid_strategy; end
+    end
+  end
+
+  let(:strategy_klass) do
+    Class.new do
+      def success?; end
+    end
+  end
 
   it "let you define must have methods" do
     dispatcher_klass = Class.new(StrategyDispatcher) do
@@ -36,32 +55,12 @@ describe StrategyDispatcher do
       end
     end
 
-    strategy_klass = Class.new do
-      def success?; end
-    end
-
     expect {
       dispatcher_klass.new.register(:is_eqal_new, strategy_klass) 
     }.to_not raise_error invalid_strategy_exception
   end
 
   it "fails when you did not set a strategy reader but defined your own initializer" do
-    dispatcher_klass = Class.new(StrategyDispatcher) do
-      def initialize; end
-
-      def class_must_have_methods
-        [
-          :success?
-        ]
-      end
-
-      def exception_to_raise_for_invalid_strategy; end
-    end
-
-    strategy_klass = Class.new do
-      def success?; end
-    end
-
     expect {
       dispatcher_klass.new.register(:is_eqal_new, strategy_klass) 
     }.to raise_error Exceptions::WrongUsageOfLibrary
@@ -78,10 +77,6 @@ describe StrategyDispatcher do
       end
 
       def exception_to_raise_for_invalid_strategy; end
-    end
-
-    strategy_klass = Class.new do
-      def success?; end
     end
 
     expect {
