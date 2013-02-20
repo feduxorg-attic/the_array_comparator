@@ -18,7 +18,9 @@ describe StrategyDispatcher do
 
   let(:strategy_klass) do
     Class.new do
-      def success?; end
+      def success?
+        true
+      end
     end
   end
 
@@ -84,6 +86,25 @@ describe StrategyDispatcher do
     }.to_not raise_error Exceptions::WrongUsageOfLibrary
   end
 
+  it "gives you access to the defined strategies via the reader" do
+    dispatcher_klass = Class.new(StrategyDispatcher) do
+      strategy_reader :strategies
+
+      def class_must_have_methods
+        [
+          :success?
+        ]
+      end
+
+      def exception_to_raise_for_invalid_strategy; end
+    end
+
+    d = dispatcher_klass.new
+    d.register(:is_eqal_new, strategy_klass) 
+    s = d.strategies[:is_eqal_new]
+    expect(s).to be(strategy_klass)
+  end
+
   it "fails if you try to register an internal keyword" do
     forbidden_keywords = [ 
       :initialize,
@@ -116,31 +137,23 @@ describe StrategyDispatcher do
     end
   end
 
-  #it "fails when registering a not suitable class" do
-  #  comparator_instance = double('TestStrategyDispatcherInstance')
-  #  comparator_instance.stub(:successasdf?).and_return(true)
+  it "fails when registering a not suitable class" do
+    Invalid_strategy_exception = Class.new(Exception)
 
-  #  comparator_klass = double('TestStrategyDispatcherClass')
-  #  comparator_klass.stub(:new).and_return(comparator_instance)
-  #  expect {
-  #    StrategyDispatcher.register(:is_eqal_new, comparator_klass) 
-  #  }.to raise_error Exceptions::IncompatibleStrategy
-  #end
+    dispatcher_klass = Class.new(StrategyDispatcher) do
+      def class_must_have_methods
+        [ 
+          :wow_what_a_method
+        ]
+      end
 
-#  it "let you register and use classes" do
-#    comparator_instance = double('TestStrategyDispatcherInstance')
-#    comparator_instance.stub(:success?).and_return(true)
-#
-#    comparator_klass = double('TestStrategyDispatcherClass')
-#    comparator_klass.stub(:new).and_return(comparator_instance)
-#
-#    StrategyDispatcher.register(:new_comp, comparator_klass) 
-#
-#    comparator = StrategyDispatcher.new
-#    comparator.add_check %w{a}, :new_comp , %{a}
-#    result = comparator.success?
-#
-#    expect(result).to eq(true)
-#  end
+      def exception_to_raise_for_invalid_strategy
+        Invalid_strategy_exception
+      end
+    end
 
+    expect {
+      dispatcher_klass.new.register(:is_eqal_new, strategy_klass) 
+    }.to raise_error Invalid_strategy_exception
+  end
 end
