@@ -16,7 +16,7 @@ module TheArrayComparator
       # @param [String, Symbol] name
       #   the name for the reader
       def strategy_reader(name)
-        raise Exception::UsedInternalKeyword,  "You tried to define a reader (#{name}) using an internal name, which is forbidden. Please choose another name. Thank you very much." if internal_keywords.include? name
+        raise Exceptions::UsedInternalKeyword,  "You tried to define a reader using an internal name , which is forbidden (your reader name: #{name}). Please choose another name. Thank you very much." if internal_keywords.include? name
 
         define_method name.to_sym do
           instance_variable_get :@available_strategies
