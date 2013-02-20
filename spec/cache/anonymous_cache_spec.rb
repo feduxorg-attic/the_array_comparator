@@ -1,9 +1,9 @@
 #enconding: utf-8
 require 'spec_helper'
 
-describe Cache::AnonymousCache do
+describe CachingStrategies::AnonymousCache do
 
-  let(:cache) { Cache::AnonymousCache.new }
+  let(:cache) { CachingStrategies::AnonymousCache.new }
 
   it "adds abitrary objects to cache" do
     expect {

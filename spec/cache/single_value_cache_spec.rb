@@ -1,9 +1,9 @@
 #enconding: utf-8
 require 'spec_helper'
 
-describe Cache::SingleValueCache do
+describe CachingStrategies::SingleValueCache do
 
-  let(:cache) { Cache::SingleValueCache.new }
+  let(:cache) { CachingStrategies::SingleValueCache.new }
 
   it "adds abitrary objects to cache" do
     expect {

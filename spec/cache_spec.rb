@@ -31,7 +31,7 @@ describe Cache do
     cache = Cache.add(:test, :anonymous_cache)
     data = %w{ a b c d}
 
-    expect( cache.class ).to be(Cache::AnonymousCache)
+    expect( cache.class ).to be(CachingStrategy::AnonymousCache)
   end
 
 end

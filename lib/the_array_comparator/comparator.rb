@@ -1,23 +1,12 @@
 #encoding: utf-8
+require 'the_array_comparator/caching_strategies/anonymous_cache'
+require 'the_array_comparator/caching_strategies/single_value_cache'
 
 # the main module
 module TheArrayComparator
   # the main comparator shell class
   class Comparator < StrategyDispatcher
 
-    class << self
-      # @see StrategyWrapper
-      def exception_invalid_strategy
-        Exceptions::IncompatibleComparator
-      end
-
-      # @see StrategyWrapper
-      def class_must_have_methods
-        [
-          :success?,
-        ]
-      end
-    end
 
     # Create a new comparator instance
     # and register default comparators
@@ -25,6 +14,14 @@ module TheArrayComparator
     # @return [Comparator]
     #   a new comparator
     def initialize(cache_checks=[],cache_result=[])
+  #Comparator.register :contains_all, SearchingStrategies::ContainsAll
+  #Comparator.register :contains_any, SearchingStrategies::ContainsAny
+  #Comparator.register :not_contains, SearchingStrategies::ContainsNot
+  #Comparator.register :contains_all_as_substring, SearchingStrategies::ContainsAllWithSubstringSearch
+  #Comparator.register :contains_any_as_substring, SearchingStrategies::ContainsAnyWithSubstringSearch
+  #Comparator.register :not_contains_substring, SearchingStrategies::ContainsNotWithSubstringSearch
+  #Comparator.register :is_equal, SearchingStrategies::IsEqual
+  #Comparator.register :is_not_equal, SearchingStrategies::IsNotEqual
       if cache_checks.blank?
         @cache_checks = Cache.add(:checks, :anonymous_cache)
       else
@@ -36,6 +33,17 @@ module TheArrayComparator
       else
         @cache_result = cache_result
       end
+    end
+    # @see StrategyWrapper
+    def exception_invalid_strategy
+      Exceptions::IncompatibleComparator
+    end
+
+    # @see StrategyWrapper
+    def class_must_have_methods
+      [
+        :success?,
+      ]
     end
 
     # Add a check to test against
