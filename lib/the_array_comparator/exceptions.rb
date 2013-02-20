@@ -33,9 +33,18 @@ module TheArrayComparator
     class CacheDoesNotExist < Exception
     end
 
-    # Use if one forgot to implement that
+    # Used if one forgot to implement that
     # method
     class MustHaveMethodNotImplemented < Exception
+    end
+
+    # Used if one use the library the wrong way
+    class WrongUsageOfLibrary < Exception
+    end
+
+    # Use if one tries to register an internal
+    # keyword
+    class UsedInternalKeyword < Exception
     end
   end
 end
