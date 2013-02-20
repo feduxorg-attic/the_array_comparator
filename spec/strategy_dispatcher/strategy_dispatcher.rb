@@ -84,6 +84,38 @@ describe StrategyDispatcher do
     }.to_not raise_error Exceptions::WrongUsageOfLibrary
   end
 
+  it "fails if you try to register an internal keyword" do
+    forbidden_keywords = [ 
+      :initialize,
+      :strategy_reader,
+      :register,
+      :exception_to_raise_for_invalid_strategy,
+      :class_must_have_methods,
+      :each,
+      :interal_keywords,
+      :valid_strategy?,
+      :exception_if_not_implemented,
+    ]
+
+    def dispatcher_klass(reader)
+      Class.new(StrategyDispatcher) do
+        strategy_reader reader.to_sym
+
+        def class_must_have_methods
+          [
+            :success?
+          ]
+        end
+
+        def exception_to_raise_for_invalid_strategy; end
+      end
+    end
+
+    forbidden_keywords.each do |w|
+      expect{ dispatcher_klass(w) }.to raise_error Exceptions::UsedInternalKeyword
+    end
+  end
+
   #it "fails when registering a not suitable class" do
   #  comparator_instance = double('TestStrategyDispatcherInstance')
   #  comparator_instance.stub(:successasdf?).and_return(true)
