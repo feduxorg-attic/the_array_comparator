@@ -10,19 +10,36 @@ module TheArrayComparator
       @available_strategies = {}
     end
 
-    # Define a reader for the available strategies
-    #
-    # @param [String, Symbol] name
-    #   the name for the reader
-    def strategy_reader(name)
-      raise Exception::UsedInternalKeyword, \
-        "You tried to define a reader (#{name}) using an internal name, which is forbidden. Please choose another name. Thank you very much." \
-        if internal_keywords.include? name
+    class << self
+      # Define a reader for the available strategies
+      #
+      # @param [String, Symbol] name
+      #   the name for the reader
+      def strategy_reader(name)
+        raise Exception::UsedInternalKeyword,  "You tried to define a reader (#{name}) using an internal name, which is forbidden. Please choose another name. Thank you very much." if internal_keywords.include? name
 
-      define_method name.to_sym do
-        instance_variable_get :@available_strategies
+        define_method name.to_sym do
+          instance_variable_get :@available_strategies
+        end
+      end
+
+      private
+
+      def internal_keywords
+        [
+          :initialize,
+          :strategy_reader,
+          :register,
+          :exception_to_raise_for_invalid_strategy,
+          :class_must_have_methods,
+          :each,
+          :interal_keywords,
+          :valid_strategy?,
+          :exception_if_not_implemented,
+        ]
       end
     end
+
 
     # Register a new comparator strategy
     #
@@ -74,22 +91,7 @@ module TheArrayComparator
 
     #internal reader
     def available_strategies
-      @available_strategies || raise Exceptions::WrongLibraryUsage, \
-                                 "You forgot to call \"super()\" in your initialize-method of your strategy dispatcher #{self.name}"
-    end
-
-    def internal_keywords
-      [
-        :initialize,
-        :strategy_reader,
-        :register,
-        :exception_to_raise_for_invalid_strategy,
-        :class_must_have_methods,
-        :each,
-        :interal_keywords,
-        :valid_strategy?,
-        :exception_if_not_implemented,
-      ]
+      @available_strategies or raise Exceptions::WrongUsageOfLibrary, "You forgot to call \"super()\" in your initialize-method of your strategy dispatcher #{self.class.name}"
     end
 
     # Check if given klass is a valid
@@ -101,7 +103,7 @@ module TheArrayComparator
     # implemented, raise an exception 
     # if one forgot to implement them
     def exception_if_not_implemented(m)
-      raise Exceptions::MustHaveMethodNotImplemented, "You forgot to implement the must have method \"#{m}\" in your strategy dispatcher #{self.name}"
+      raise Exceptions::MustHaveMethodNotImplemented, "You forgot to implement the must have method \"#{m}\" in your strategy dispatcher #{self.class.name}"
     end
 
   end

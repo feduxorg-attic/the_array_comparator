@@ -5,11 +5,11 @@ describe StrategyDispatcher do
 
   it "let you define must have methods" do
     dispatcher_klass = Class.new(StrategyDispatcher) do
-      def self.class_must_have_methods; end
+      def class_must_have_methods; end
     end
 
     expect {
-      dispatcher_klass.class_must_have_methods
+      dispatcher_klass.new.class_must_have_methods
     }.to_not raise_error
   end
 
@@ -17,11 +17,11 @@ describe StrategyDispatcher do
     dispatcher_klass = Class.new(StrategyDispatcher) do; end
 
     expect {
-      dispatcher_klass.class_must_have_methods
+      dispatcher_klass.new.class_must_have_methods
     }.to raise_error Exceptions::MustHaveMethodNotImplemented
 
     expect {
-      dispatcher_klass.exception_to_raise_for_invalid_strategy
+      dispatcher_klass.new.exception_to_raise_for_invalid_strategy
     }.to raise_error Exceptions::MustHaveMethodNotImplemented
   end
 
@@ -29,9 +29,9 @@ describe StrategyDispatcher do
     invalid_strategy_exception = Class.new(Exception)
 
     dispatcher_klass = Class.new(StrategyDispatcher) do
-      def self.class_must_have_methods; end
+      def class_must_have_methods; end
 
-      def self.exception_to_raise_for_invalid_strategy
+      def exception_to_raise_for_invalid_strategy
         invalid_strategy_exception
       end
     end
@@ -41,19 +41,21 @@ describe StrategyDispatcher do
     end
 
     expect {
-      dispatcher_klass.register(:is_eqal_new, strategy_klass) 
+      dispatcher_klass.new.register(:is_eqal_new, strategy_klass) 
     }.to_not raise_error invalid_strategy_exception
   end
 
-  it "fails when you did not set a strategy reader" do
+  it "fails when you did not set a strategy reader but defined your own initializer" do
     dispatcher_klass = Class.new(StrategyDispatcher) do
-      def self.class_must_have_methods
+      def initialize; end
+
+      def class_must_have_methods
         [
           :success?
         ]
       end
 
-      def self.exception_to_raise_for_invalid_strategy; end
+      def exception_to_raise_for_invalid_strategy; end
     end
 
     strategy_klass = Class.new do
@@ -61,21 +63,21 @@ describe StrategyDispatcher do
     end
 
     expect {
-      dispatcher_klass.register(:is_eqal_new, strategy_klass) 
-    }.to raise_error Exceptions::UndefinedStrategyReader
+      dispatcher_klass.new.register(:is_eqal_new, strategy_klass) 
+    }.to raise_error Exceptions::WrongUsageOfLibrary
   end
 
   it "is happy if you define a strategy reader" do
     dispatcher_klass = Class.new(StrategyDispatcher) do
       strategy_reader :avail_strategies
 
-      def self.class_must_have_methods
+      def class_must_have_methods
         [
           :success?
         ]
       end
 
-      def self.exception_to_raise_for_invalid_strategy; end
+      def exception_to_raise_for_invalid_strategy; end
     end
 
     strategy_klass = Class.new do
@@ -83,8 +85,8 @@ describe StrategyDispatcher do
     end
 
     expect {
-      dispatcher_klass.register(:is_eqal_new, strategy_klass) 
-    }.to raise_error Exceptions::UndefinedStrategyReader
+      dispatcher_klass.new.register(:is_eqal_new, strategy_klass) 
+    }.to_not raise_error Exceptions::WrongUsageOfLibrary
   end
 
   #it "fails when registering a not suitable class" do
