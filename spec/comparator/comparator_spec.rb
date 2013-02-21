@@ -152,7 +152,7 @@ describe Comparator do
     expect(result.of_checks).to eq(true)
   end
 
-  it "tells you which check has failed and made the whole thing failed" , :test => true do
+  it "tells you which check has failed and made the whole thing failed" do
     comparator = Comparator.new
     data = %w{ a b c d }
     keyword_successfull = %w{ a b }
