@@ -6,6 +6,7 @@ module TheArrayComparator
   class Cache < StrategyDispatcher
 
     strategy_reader :caching_strategies
+    attr_reader :caches
 
     # Variable to store available caches
     def initialize
@@ -38,9 +39,10 @@ module TheArrayComparator
     # @param [Symbol] cache
     #   the cache to be used
     def [](cache)
-      raise Exceptions::CacheDoesNotExist, "Unknown cache \":#{cache}\" given. Did you create it in advance?"  unless @caches.has_key?(cache)
+      c = cache.to_sym
 
-      @caches[cache]
+      raise Exceptions::CacheDoesNotExist, "Unknown cache \":#{c}\" given. Did you create it in advance?"  unless caches.has_key?(c)
+      caches[c]
     end
 
     # Add a new cache
@@ -51,10 +53,13 @@ module TheArrayComparator
     # @param [Symbol] strategy
     #   the cache strategy to be used
     def add(cache,strategy)
+      c = cache.to_sym
+      s = strategy.to_sym
+
       raise Exceptions::UnknownCachingStrategy, "Unknown caching strategy \":#{strategy}\" given. Did you register it in advance?"  unless caching_strategies.has_key?(strategy)
 
-      @caches[cache.to_sym] = @caching_strategies[strategy.to_sym].new 
-      @caches[cache]
+      caches[c] = caching_strategies[s].new 
+      caches[c]
     end
   end
 end
