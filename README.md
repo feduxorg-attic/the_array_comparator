@@ -109,7 +109,8 @@ puts result #should be false
 If you wish to write your own comparators you can do so. Just register those classes with a keyword.
 
 ```ruby
-TheArrayComparator::Comparator.register :my_contains, Strategies::MyContains
+c = TheArrayComparator::Comparator.new
+c.register :my_contains, SearchingStrategies::MyContains
 ```
 
 ## Further reading

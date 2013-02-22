@@ -7,12 +7,16 @@ Comparator                           # Main class dispatching the work
 |
 -- Check, Result, Sample             # Helper classes for easier testing
 |
--- Strategies
+-- SearchingStrategies               
 |  |
 |  -- ContainsAll                    # Strategies doing the hard work:
 |  |                                 # compare data with keywords and
 |  -- ...                            # return the result
 |
--- Cache                             # Cache checks for easier retrieval
+-- CachingStrategies
+|  |
+|  -- SingleValueCaching             # Strategies doing the hard work:
+|  |                                 # caching the objects
+|  -- ...                            
  
 ```
