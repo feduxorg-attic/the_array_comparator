@@ -3,7 +3,9 @@
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/maxmeyer/the_array_comparator)
 [![Build Status](https://travis-ci.org/maxmeyer/the_array_comparator.png?branch=master)](https://travis-ci.org/maxmeyer/the_array_comparator)
 
-Can be used to compare to arrays with a consistent api.
+Can be used to compare to arrays with a consistent api. It also supports
+caching of previous comparism runs to reduce the amount of time for each
+subsequent run - if no further check was added.
 
 ## Installation
 

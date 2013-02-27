@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["dev@fedux.org"]
   gem.description   = %q{you need to compare arrays? then this gem is very suitable for you.}
   gem.summary   = %q{you need to compare arrays? then this gem is very suitable for you.}
-  gem.homepage      = "https://www.github.com/max_meyer/the_array_comparator"
+  gem.homepage      = "https://www.github.com/maxmeyer/the_array_comparator"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
