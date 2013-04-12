@@ -3,9 +3,14 @@
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/maxmeyer/the_array_comparator)
 [![Build Status](https://travis-ci.org/maxmeyer/the_array_comparator.png?branch=master)](https://travis-ci.org/maxmeyer/the_array_comparator)
 
-The Array Comparator can be used to compare to arrays with a consistent api: It
-lets you write more concise tests and makes error detection in a commandline
-environment easier - see [Use Cases](#use_cases). 
+
+The Array Comparator lets you add multiple checks comparing two arrays each.
+This way it lets you write more concise tests and makes error detection in a
+commandline environment a lot easier -- [Use Cases](#use_cases). If you're
+interested, please have a look at the <a
+href="http://www.github.com/maxmeyer/the_array_comparator">git repository</a>.
+
+
 
 It also supports caching of previous comparism runs to reduce the amount of
 time for each subsequent run - if no further check was added.
