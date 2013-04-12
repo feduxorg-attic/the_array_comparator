@@ -3,9 +3,12 @@
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/maxmeyer/the_array_comparator)
 [![Build Status](https://travis-ci.org/maxmeyer/the_array_comparator.png?branch=master)](https://travis-ci.org/maxmeyer/the_array_comparator)
 
-Can be used to compare to arrays with a consistent api. It also supports
-caching of previous comparism runs to reduce the amount of time for each
-subsequent run - if no further check was added.
+The Array Comparator can be used to compare to arrays with a consistent api: It
+lets you write more concise tests and makes error detection in a commandline
+environment easier - see [Use Cases](#use_cases). 
+
+It also supports caching of previous comparism runs to reduce the amount of
+time for each subsequent run - if no further check was added.
 
 ## Installation
 
@@ -106,6 +109,55 @@ result = comparator.success?
 puts result #should be false
 ```
 
+### Example with multiple checks
+
+```ruby
+require 'the_array_comparator'
+comparator = TheArrayComparator::Comparator.new
+
+data = %w{ acd b }
+keyword_overlap = %w{ a b }
+comparator.add_check data , :contains_all_as_substring, keyword_overlap
+
+data = %w{1 2 3 4}
+keywords = %w{ a b }
+comparator.add_check data , :not_contains, keywords
+
+result = comparator.success?
+puts result #should be true
+```
+
+### Example with tag
+
+```ruby
+require 'the_array_comparator'
+comparator = TheArrayComparator::Comparator.new
+data = %w{ a b c d }
+keyword_successfull = %w{ a b }
+keyword_failed = %w{ e }
+
+comparator.add_check data , :contains_all , keyword_successfull
+comparator.add_check data , :contains_all , keyword_failed, tag: 'this is a failed sample'
+
+comparator.success?
+puts comparator.result.failed_sample
+```
+
+### Example with access to result
+```ruby
+require 'the_array_comparator'
+comparator = TheArrayComparator::Comparator.new
+
+data = %w{ a c d b }
+keyword_overlap = %w{ a b }
+comparator.add_check data , :not_contains, keyword_overlap
+
+p comparator.success? 
+p comparator.result.of_checks
+p comparator.result.failed_sample
+```
+
+
 ### Extend the library
 
 If you wish to write your own comparators you can do so. Just register those classes with a keyword.
@@ -115,10 +167,50 @@ c = TheArrayComparator::Comparator.new
 c.register :my_contains, SearchingStrategies::MyContains
 ```
 
+##<a name=use_cases>Use Cases</a>
+
+### Testing
+
+```ruby
+require 'the_array_comparator'
+describe TheArrayComparator
+  it "tells you the result of the check" do
+    comparator = TheArrayComparator::Comparator.new
+    data = %w{ a b c d }
+    keyword_overlap = %w{ a b }
+    keyword_no_overlap = %w{ e }
+    
+    comparator.add_check data , :contains_all , keyword_overlap
+    comparator.add_check data , :not_contains , keyword_no_overlap
+    
+    expect(comparator.success?).to eq(true)
+  end
+end
+```
+
+### Error checking
+
+```ruby
+#!/usr/bin/env ruby
+
+require 'open3'
+require 'the_array_comparator'
+
+stdout_str, stderr_str, status = Open3.capture3("/usr/bin/env echo error")
+
+comparator = TheArrayComparator::Comparator.new
+comparator.add_check stdout_str.split("\n") , :contains_all , %w[ error ]
+comparator.add_check [ status.exitstatus ] , :contains_all , [ 0 ]
+
+p comparator.success? #should be true
+```
+
 ## Further reading
 
-Please the the full api-documentation on [rdoc info](http://rdoc.info/github/maxmeyer/the_array_comparator/frames) for further reading.
-I just give you a brief overview of all the available methods. There's also a brief [guide](API-GUIDE.md) about howto discover the API.
+Please see the full api-documentation on [rdoc
+info](http://rdoc.info/github/maxmeyer/the_array_comparator/frames) for further
+reading. There's also a brief [guide](API-GUIDE.md) about howto discover the
+API.
 
 ## Contributing
 
