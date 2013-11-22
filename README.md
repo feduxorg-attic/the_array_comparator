@@ -71,6 +71,36 @@ Currently the following strategies are supported
   </tr>
 </table>
 
+To add a check you need to use `#add_check`-method. It accepts four arguments
+* `data`: The data which should be searched
+* `strategy`: The kind of check which should be added (see the table above for supported strategies)
+* `keywords`: The keywords which should be looked up in data
+* `options` (optional): Options for the check to be added (see the table below for valid options)
+
+```ruby
+comparator.add_check data , operation, keywords, options
+```
+
+<table>
+  <tr>
+    <td>:tag</td>
+    <td>If you need to know which check caused the test suite to fail, add a
+    tag to the check. The array comparator records the sample which fails the
+    whole test suite. You can use *whatever* you want/can imagine as a tag:
+    e.g. `String`, `Symbol`. Personally I prefer to use `Symbol`s.</td> 
+   </tr>
+  <tr>
+    <td>:exceptions</td>
+    <td>Some times you have a quite generic check which matches to many lines
+    in the sample. To help you with that, you can add an exception to a
+    check.</td> 
+  </tr>
+</table>
+
+```ruby
+comparator.add_check data , operation, keywords, tag: :test_tag, exceptions: [ 'lala' ]
+```
+
 ### Simple example
 
 ```ruby
@@ -108,7 +138,7 @@ data = %w{ acd b }
 keyword_overlap = %w{ a b }
 exceptions = %w{ cd }
 
-comparator.add_check data , :contains_all_as_substring, keyword_overlap, exceptions
+comparator.add_check data , :contains_all_as_substring, keyword_overlap, exceptions: exceptions
 
 result = comparator.success?
 puts result #should be false
@@ -135,6 +165,7 @@ puts result #should be true
 ### Example with tag
 
 ```ruby
+#simple, isn't it?
 require 'the_array_comparator'
 comparator = TheArrayComparator::Comparator.new
 data = %w{ a b c d }
@@ -142,10 +173,25 @@ keyword_successfull = %w{ a b }
 keyword_failed = %w{ e }
 
 comparator.add_check data , :contains_all , keyword_successfull
+#comparator.add_check data , :contains_all , keyword_failed, tag: :this_is_another_tag
 comparator.add_check data , :contains_all , keyword_failed, tag: 'this is a failed sample'
 
 comparator.success?
-puts comparator.result.failed_sample
+puts comparator.result.failed_sample.tag
+
+#use WHATEVER you want!
+require 'the_array_comparator'
+require 'ostruct'
+comparator = TheArrayComparator::Comparator.new
+data = %w{ a b c d }
+keyword_successfull = %w{ a b }
+keyword_failed = %w{ e }
+
+comparator.add_check data , :contains_all , keyword_successfull
+comparator.add_check data , :contains_all , keyword_failed, tag: OpenStruct.new( id: 1, text: 'this is another tag as well' )
+
+comparator.success?
+puts comparator.result.failed_sample.tag.text
 ```
 
 ### Example with access to result
