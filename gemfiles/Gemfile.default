@@ -27,4 +27,5 @@ group :development do
   gem 'activesupport'
   gem 'fuubar'
   gem 'churn'
+  gem 'fedux_org-stdlib'
 end

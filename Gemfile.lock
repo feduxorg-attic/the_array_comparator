@@ -41,6 +41,8 @@ GEM
     debugger-ruby_core_source (1.1.8)
     diff-lcs (1.1.3)
     fattr (2.2.1)
+    fedux_org-stdlib (0.1.0)
+      activesupport
     ffaker (1.15.0)
     ffi (1.4.0)
     fuubar (1.1.0)
@@ -105,6 +107,7 @@ DEPENDENCIES
   awesome_print
   churn
   debugger
+  fedux_org-stdlib
   ffaker
   fuubar
   github-markup
