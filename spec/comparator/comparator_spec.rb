@@ -165,4 +165,19 @@ describe Comparator do
     result = comparator.result
     expect(result.failed_sample).to eq(c.sample)
   end
+
+  it "tells you the result of the check although no checks were added" do
+    comparator = Comparator.new
+    comparator.success?
+    result = comparator.result
+    expect( comparator.success? ).to eq(true)
+  end
+
+  it "returns an empty result if no checks were added but it is asked for a result" do
+    comparator = Comparator.new
+    comparator.success?
+
+    result = comparator.result
+    expect(result.failed_sample).to be_blank
+  end
 end

@@ -37,5 +37,11 @@ module TheArrayComparator
       @tag = tag
     end
 
+    # Check if sample is blank: no values for keywords, data, exceptions, tag
+    #
+    # @return [true,false] the result of check
+    def blank?
+      @keywords.blank? and @data.blank? and @exceptions.blank? and @tag.blank?
+    end
   end
 end

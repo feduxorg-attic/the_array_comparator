@@ -14,7 +14,13 @@ module TheArrayComparator
     end
 
     def failed_sample
-      @sample
+      @sample || null_sample
+    end
+
+    private
+
+    def null_sample
+      Sample.new
     end
 
   end

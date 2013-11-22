@@ -34,5 +34,10 @@ describe Sample do
       expect(sample.exceptions).to eq(Set.new( [ exceptions ] ) )
   end
 
+  context '#blank' do
+    it "checks if all values are blank" do
+      expect( Sample.new.blank? ).to be_true
+    end
+  end
 
 end

@@ -1,14 +1,12 @@
 PATH
   remote: .
   specs:
-    the_array_comparator (0.2.0)
-      active_support
+    the_array_comparator (0.4.0)
+      activesupport
 
 GEM
   remote: https://rubygems.org/
   specs:
-    active_support (3.0.0)
-      activesupport (= 3.0.0)
     activesupport (3.0.0)
     arrayfields (4.7.4)
     aruba (0.5.1)

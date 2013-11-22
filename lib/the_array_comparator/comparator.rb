@@ -90,7 +90,7 @@ module TheArrayComparator
     def result
       if @cache[:checks].new_objects?
         @cache[:checks].stored_objects.each do |c| 
-          @result = Result.new(c.sample) unless c.success?
+          @result = Result.new( c.sample ) unless c.success?
         end
       end
 

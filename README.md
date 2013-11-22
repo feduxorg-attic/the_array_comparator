@@ -107,6 +107,10 @@ comparator.add_check data , operation, keywords, options
 comparator.add_check data , operation, keywords, tag: :test_tag, exceptions: [ 'lala' ]
 ```
 
+If you ask the comparator for success before a check was added, it will return
+`true`. If you ask it for the `#failed_sample` it will return an empty result
+to you.
+
 ### Simple example
 
 ```ruby
