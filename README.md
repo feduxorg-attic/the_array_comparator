@@ -33,10 +33,11 @@ Or install it yourself as:
 
 Currently the following strategies are supported
 <table>
-  <tr>
+  <caption>Supported search strategies for checks</caption>
+  <th>
     <th>Strategy</th>
     <th>Description</th>
-  </tr>
+  </th>
   <tr>
     <td>:contains_all</td>
     <td>True if all of the given keywords are part of the data</td>
@@ -82,6 +83,11 @@ comparator.add_check data , operation, keywords, options
 ```
 
 <table>
+  <caption>Supported options for check</caption>
+  <th>
+    <th>Option</th>
+    <th>Description</th>
+  </th>
   <tr>
     <td>:tag</td>
     <td>If you need to know which check caused the test suite to fail, add a
