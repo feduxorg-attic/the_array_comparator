@@ -3,4 +3,4 @@ gemfile: gemfiles/Gemfile.travis
 rvm:
   - 2.1.5
   - 2.2.1
-script: bundle exec rake test:travis_specs
+script: bundle exec rake test
