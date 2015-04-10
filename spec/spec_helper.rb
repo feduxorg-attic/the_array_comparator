@@ -4,7 +4,7 @@ $LOAD_PATH << File.expand_path('../lib' , File.dirname(__FILE__))
 
 unless ENV['TRAVIS_CI'] == 'true'
   require 'pry'
-  require 'debugger'
+  require 'byebug'
   require 'ap'
   require 'ffaker'
   require 'benchmark'

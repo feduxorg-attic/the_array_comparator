@@ -19,13 +19,18 @@ end
 
 group :development do
   gem 'tmrb'
-  gem 'debugger'
-  gem 'pry'
-  gem 'pry-doc'
   gem 'awesome_print'
   gem 'travis-lint'
   gem 'activesupport'
-  gem 'fuubar'
   gem 'churn'
   gem 'fedux_org-stdlib'
+end
+
+group :debug do
+  gem 'pry'
+  gem 'pry-doc'
+  gem 'byebug'
+  gem 'pry-byebug'
+  gem 'pry-rescue'
+  gem 'pry-stack_explorer'
 end
