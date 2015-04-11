@@ -1,12 +1,11 @@
-#encoding: utf-8
+# encoding: utf-8
 
 # the main module
 module TheArrayComparator
-  #caching strategies
+  # caching strategies
   module CachingStrategies
-    #anonymous cache
+    # anonymous cache
     class SingleValueCache
-
       # Create cache
       def initialize
         @cache = []
@@ -21,7 +20,7 @@ module TheArrayComparator
       # @return [Object]
       #   the object which has beed added
       def add(obj)
-        @cache = [ obj ]
+        @cache = [obj]
         @new_objects = true
 
         obj

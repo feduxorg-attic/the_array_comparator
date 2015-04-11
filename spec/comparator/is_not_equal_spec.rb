@@ -1,38 +1,38 @@
-#enconding: utf-8
+# enconding: utf-8
 require 'spec_helper'
 require 'strategies_helper'
 
 describe SearchingStrategies::IsNotEqual do
-  let(:data) { %w{ a } }
-  let(:keywords_overlap) { %w{ a } }
-  let(:keywords_no_overlap) { %w{ d } }
+  let(:data) { %w(a) }
+  let(:keywords_overlap) { %w(a) }
+  let(:keywords_no_overlap) { %w(d) }
 
-  it "is successfull if keywords are empty" do
-    sample = SampleDouble.new(data,[])
+  it 'is successfull if keywords are empty' do
+    sample = SampleDouble.new(data, [])
     comparator = SearchingStrategies::IsNotEqual.new(sample)
     expect(comparator.success?).to eq(true)
   end
 
-  it "is successfull if data is empty" do
-    sample = SampleDouble.new([],keywords_no_overlap)
+  it 'is successfull if data is empty' do
+    sample = SampleDouble.new([], keywords_no_overlap)
     comparator = SearchingStrategies::IsNotEqual.new(sample)
     expect(comparator.success?).to eq(true)
   end
 
-  it "fails if both keywords and data are empty" do
-    sample = SampleDouble.new([],[])
+  it 'fails if both keywords and data are empty' do
+    sample = SampleDouble.new([], [])
     comparator = SearchingStrategies::IsNotEqual.new(sample)
     expect(comparator.success?).to eq(false)
   end
 
-  it "fails if data and keywords are equal" do
-    sample = SampleDouble.new(data,keywords_overlap)
+  it 'fails if data and keywords are equal' do
+    sample = SampleDouble.new(data, keywords_overlap)
     comparator = SearchingStrategies::IsNotEqual.new(sample)
     expect(comparator.success?).to eq(false)
   end
 
-  it "is successfull if data and keywords are different" do
-    sample = SampleDouble.new(data,keywords_no_overlap)
+  it 'is successfull if data and keywords are different' do
+    sample = SampleDouble.new(data, keywords_no_overlap)
     comparator = SearchingStrategies::IsNotEqual.new(sample)
     expect(comparator.success?).to eq(true)
   end

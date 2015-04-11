@@ -1,10 +1,10 @@
-#encoding: utf-8
+# encoding: utf-8
 
 # the main module
 module TheArrayComparator
   # the check result
   class Result
-    def initialize(sample=nil)
+    def initialize(sample = nil)
       @sample = sample
     end
 
@@ -22,6 +22,5 @@ module TheArrayComparator
     def null_sample
       Sample.new
     end
-
   end
 end

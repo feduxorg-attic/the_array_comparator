@@ -1,16 +1,15 @@
-#encoding: utf-8
+# encoding: utf-8
 
 # the main module
 module TheArrayComparator
   # the available strategies
   module SearchingStrategies
-    #strategy is equal
+    # strategy is equal
     class IsEqual < Base
-      
       # Create a new instance of strategy
       #
       # @see Base
-      def initialize(sample=Sample.new)
+      def initialize(sample = Sample.new)
         super
 
         warning_unsupported_exceptions

@@ -2,10 +2,10 @@ module TheArrayComparator
   module TestingHelper
     # Keywords only make sense together with the raw data
     class DataSet
-      #@!attribute [rw] keywords
+      # @!attribute [rw] keywords
       #  keywords which need to be hidden in the raw data
       #
-      #@!attribute [rw] raw_data
+      # @!attribute [rw] raw_data
       #  the raw data which should be used to hide the keywords
       attr_accessor :keywords, :raw_data
 
@@ -13,7 +13,7 @@ module TheArrayComparator
       #
       # @return [DataSet]
       #   the object holding the data
-      def initialize(keywords=[],raw_data=[])
+      def initialize(keywords = [], raw_data = [])
         @keywords = keywords
         @raw_data = raw_data
       end
@@ -44,7 +44,7 @@ module TheArrayComparator
       private
 
       def divisor
-        if count_of_keywords > 0 and count_of_keywords <= count_of_rawdata
+        if count_of_keywords > 0 && count_of_keywords <= count_of_rawdata
           return count_of_keywords
         else
           return 1

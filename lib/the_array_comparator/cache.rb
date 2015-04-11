@@ -1,10 +1,9 @@
-#encoding: utf-8
+# encoding: utf-8
 
 # the main module
 module TheArrayComparator
-  #caching class
+  # caching class
   class Cache < StrategyDispatcher
-
     strategy_reader :caching_strategies
     attr_reader :caches
 
@@ -25,7 +24,7 @@ module TheArrayComparator
         :stored_objects,
         :new_objects?,
         :delete_object,
-        :fetch_object,
+        :fetch_object
       ]
     end
 
@@ -34,14 +33,14 @@ module TheArrayComparator
       Exceptions::IncompatibleCachingStrategy
     end
 
-    # Retrieve cache 
+    # Retrieve cache
     #
     # @param [Symbol] cache
     #   the cache to be used
     def [](cache)
       c = cache.to_sym
 
-      raise Exceptions::CacheDoesNotExist, "Unknown cache \":#{c}\" given. Did you create it in advance?"  unless caches.has_key?(c)
+      fail Exceptions::CacheDoesNotExist, "Unknown cache \":#{c}\" given. Did you create it in advance?"  unless caches.key?(c)
       caches[c]
     end
 
@@ -52,13 +51,13 @@ module TheArrayComparator
     #
     # @param [Symbol] strategy
     #   the cache strategy to be used
-    def add(cache,strategy)
+    def add(cache, strategy)
       c = cache.to_sym
       s = strategy.to_sym
 
-      raise Exceptions::UnknownCachingStrategy, "Unknown caching strategy \":#{strategy}\" given. Did you register it in advance?"  unless caching_strategies.has_key?(strategy)
+      fail Exceptions::UnknownCachingStrategy, "Unknown caching strategy \":#{strategy}\" given. Did you register it in advance?"  unless caching_strategies.key?(strategy)
 
-      caches[c] = caching_strategies[s].new 
+      caches[c] = caching_strategies[s].new
       caches[c]
     end
   end

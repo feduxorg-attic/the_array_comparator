@@ -1,12 +1,11 @@
-#encoding: utf-8
+# encoding: utf-8
 
 # the main module
 module TheArrayComparator
-  #caching strategies
+  # caching strategies
   module CachingStrategies
-    #anonymous cache
+    # anonymous cache
     class AnonymousCache
-
       # Create cache
       def initialize
         @cache = []

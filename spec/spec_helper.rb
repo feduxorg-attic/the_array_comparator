@@ -1,38 +1,22 @@
-#encoding: utf-8
+# encoding: utf-8
 
-$LOAD_PATH << File.expand_path('../lib' , File.dirname(__FILE__))
+$LOAD_PATH << ::File.expand_path('../../lib', __FILE__)
 
-unless ENV['TRAVIS_CI'] == 'true'
-  require 'pry'
-  require 'byebug'
-  require 'ap'
-  require 'ffaker'
-  require 'benchmark'
+require 'simplecov'
+SimpleCov.command_name 'rspec'
+SimpleCov.start
+
+# Pull in all of the gems including those in the `test` group
+require 'bundler'
+if ENV.key 'TRAVIS'
+  Bundler.require :default, :test, :development
+else
+  Bundler.require :default, :test, :development, :debug
 end
 
-require 'stringio'
-require 'tempfile'
+# Loading support files
+Dir.glob(::File.expand_path('../support/*.rb', __FILE__)).each { |f| require_relative f }
+Dir.glob(::File.expand_path('../support/**/*.rb', __FILE__)).each { |f| require_relative f }
 
-require 'active_support/core_ext/object/blank'
-require 'active_support/core_ext/numeric/time'
-#require 'active_support/core_ext/kernel/reporting'
-
-unless ENV['TRAVIS_CI'] == 'true'
-  require 'simplecov'
-  SimpleCov.start
-end
-
-require 'the_array_comparator'
-require 'the_array_comparator/testing_helper/data_set'
-require 'the_array_comparator/testing_helper/test_data'
-require 'the_array_comparator/testing_helper'
-
-RSpec.configure do |c|
-#  c.treat_symbols_as_metadata_keys_with_true_values = true
-#  c.filter_run_including :focus => true
-end
-
+# Avoid writing "describe LocalPac::MyClass do [..]" but "describe MyClass do [..]"
 include TheArrayComparator
-include TheArrayComparator::TestingHelper
-
-#ENV['PATH'] = '/bin'

@@ -1,4 +1,4 @@
-#encoding: utf-8
+# encoding: utf-8
 require 'the_array_comparator/caching_strategies/anonymous_cache'
 require 'the_array_comparator/caching_strategies/single_value_cache'
 
@@ -6,7 +6,6 @@ require 'the_array_comparator/caching_strategies/single_value_cache'
 module TheArrayComparator
   # the main comparator shell class
   class Comparator < StrategyDispatcher
-
     strategy_reader :comparators
 
     # Create a new comparator instance
@@ -14,7 +13,7 @@ module TheArrayComparator
     #
     # @return [Comparator]
     #   a new comparator
-    def initialize(cache=Cache.new)
+    def initialize(cache = Cache.new)
       super()
 
       @cache = cache
@@ -41,7 +40,7 @@ module TheArrayComparator
     # @see StrategyWrapper
     def class_must_have_methods
       [
-        :success?,
+        :success?
       ]
     end
 
@@ -56,7 +55,7 @@ module TheArrayComparator
     # @param [Array] keywords
     #   what to look for in the data, will be passed to the concrete comparator strategy
     #
-    # @param [Hash] options 
+    # @param [Hash] options
     #   exception, should not be considered as match
     #
     # @option options [Hash] exceptions
@@ -67,30 +66,30 @@ module TheArrayComparator
     #
     # @raise [Exceptions::UnknownCheckType]
     #   if a unknown strategy is given (needs to be registered first)
-    def add_check(data,type,keywords,options={})
+    def add_check(data, type, keywords, options = {})
       t = type.to_sym
 
-      raise Exceptions::UnknownCheckType, "Unknown check type \":#{t}\" given. Did you register it in advance?" unless comparators.has_key?(t)
+      fail Exceptions::UnknownCheckType, "Unknown check type \":#{t}\" given. Did you register it in advance?" unless comparators.key?(t)
       opts = {
         exceptions: [],
-        tag:'',
+        tag: ''
       }.merge options
 
-      sample = Sample.new(data,keywords,opts[:exceptions],opts[:tag])
+      sample = Sample.new(data, keywords, opts[:exceptions], opts[:tag])
       strategy_klass = comparators[t]
-      check = Check.new(strategy_klass,sample)
+      check = Check.new(strategy_klass, sample)
 
       @cache[:checks].add check
     end
 
     # The result of all checks defined
     #
-    # @return [Result] 
+    # @return [Result]
     #   the result class with all the data need for further analysis
     def result
       if @cache[:checks].new_objects?
-        @cache[:checks].stored_objects.each do |c| 
-          @result = Result.new( c.sample ) unless c.success?
+        @cache[:checks].stored_objects.each do |c|
+          @result = Result.new(c.sample) unless c.success?
         end
       end
 
@@ -112,9 +111,9 @@ module TheArrayComparator
     #   the index of the check which should be deleted
     def delete_check(number)
       if @cache[:checks].fetch_object(number)
-        @cache[:checks].delete_object(number) 
+        @cache[:checks].delete_object(number)
       else
-        raise Exceptions::CheckDoesNotExist, "You tried to delete a check, which does not exist!"
+        fail Exceptions::CheckDoesNotExist, 'You tried to delete a check, which does not exist!'
       end
     end
 

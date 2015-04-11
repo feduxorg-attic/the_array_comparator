@@ -1,15 +1,14 @@
-#the main module
+# the main module
 module TheArrayComparator
   # helper for tests
   module TestingHelper
-
     # Generate data for the tests
     #
     # @param [Hash] options
     #
     # @option options [Array] :keywords
     #   the keywords which should be hidden in the data
-    # 
+    #
     # @option options [Array] :raw_data
     #   the data which should be used to hide the keywords
     #
@@ -22,11 +21,11 @@ module TheArrayComparator
       opts = {
         keywords: [],
         raw_data: [],
-        count_of_data: 100,
+        count_of_data: 100
       }.merge options
 
       raw_data = options[:raw_data] || Faker::Lorem.sentences(opts[:count_of_data])
-      dataset = DataSet.new(options[:keywords],raw_data)
+      dataset = DataSet.new(options[:keywords], raw_data)
 
       testdata = TestData.new(dataset)
       testdata.generate

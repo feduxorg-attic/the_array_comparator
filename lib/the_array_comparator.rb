@@ -1,4 +1,4 @@
-#encoding: utf-8
+# encoding: utf-8
 
 require 'active_support/core_ext/object/blank'
 require 'set'
@@ -21,7 +21,6 @@ require 'the_array_comparator/searching_strategies/contains_not'
 require 'the_array_comparator/searching_strategies/is_equal'
 require 'the_array_comparator/searching_strategies/is_not_equal'
 require 'the_array_comparator/comparator'
-
 
 # main module
 module TheArrayComparator; end

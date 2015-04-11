@@ -1,16 +1,15 @@
-#encoding: utf-8
+# encoding: utf-8
 
 # the main module
 module TheArrayComparator
   # the available strategies
   module SearchingStrategies
-    #strategy contains
+    # strategy contains
     class ContainsAll < Base
-      
       # Create a new instance of strategy
       #
       # @see Base
-      def initialize(sample=Sample.new)
+      def initialize(sample = Sample.new)
         super
 
         warning_unsupported_exceptions
@@ -21,10 +20,10 @@ module TheArrayComparator
       # @return [Boolean]
       #   The result of the check
       def success?
-        return true if @keywords.blank? and @data.blank?
-        return false if @keywords.blank? or @data.blank?
+        return true if @keywords.blank? && @data.blank?
+        return false if @keywords.blank? || @data.blank?
 
-        if ( @keywords - @data ).blank?
+        if (@keywords - @data).blank?
           return true
         else
           return false

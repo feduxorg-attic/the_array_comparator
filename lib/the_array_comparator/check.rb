@@ -1,8 +1,8 @@
-#encoding: utf-8
+# encoding: utf-8
 
 # the main module
 module TheArrayComparator
-  # the check 
+  # the check
   class Check
     extend Forwardable
 
@@ -14,7 +14,7 @@ module TheArrayComparator
     attr_reader :sample
 
     # Creates new check
-    def initialize(strategy_klass,sample)
+    def initialize(strategy_klass, sample)
       @check = strategy_klass.new(sample)
       @sample = sample
     end

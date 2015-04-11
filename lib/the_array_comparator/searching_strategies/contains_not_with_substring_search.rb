@@ -1,4 +1,4 @@
-#encoding: utf-8
+# encoding: utf-8
 
 # the main module
 module TheArrayComparator
@@ -6,11 +6,10 @@ module TheArrayComparator
   module SearchingStrategies
     # strategy not contains substring
     class ContainsNotWithSubstringSearch < Base
-
       # Create a new instance of strategy
       #
       # @see Base
-      def initialize(sample=Sample.new)
+      def initialize(sample = Sample.new)
         super
       end
 
@@ -19,11 +18,11 @@ module TheArrayComparator
       # @return [Boolean]
       #   The result of the check
       def success?
-        return false if @keywords.blank? and @data.blank?
+        return false if @keywords.blank? && @data.blank?
 
-        return true if @data.all? do |line| 
-          #if a keyword is found, check if there's an exception
-          @keywords.none?{ |k| line[k] } or @exceptions.any?{ |e| line[e] }
+        return true if @data.all? do |line|
+          # if a keyword is found, check if there's an exception
+          @keywords.none? { |k| line[k] } || @exceptions.any? { |e| line[e] }
         end
 
         false

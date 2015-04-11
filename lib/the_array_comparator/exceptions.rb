@@ -2,13 +2,13 @@
 module TheArrayComparator
   # exceptions which are going to be raised under
   # certain conditions
-  module Exceptions 
-    # Used if one tries to add an unknown 
-    # check type 
+  module Exceptions
+    # Used if one tries to add an unknown
+    # check type
     class UnknownCheckType < Exception
     end
     #
-    # Used if one tries to add an unknown 
+    # Used if one tries to add an unknown
     # caching strategy
     class UnknownCachingStrategy < Exception
     end
@@ -27,7 +27,7 @@ module TheArrayComparator
     # unexisting probe
     class CheckDoesNotExist < Exception
     end
-    
+
     # Used if one tries to use an unexisting
     # cache
     class CacheDoesNotExist < Exception

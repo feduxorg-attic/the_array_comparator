@@ -1,7 +1,6 @@
 module TheArrayComparator
   module TestingHelper
     class TestData
-
       # Create test data instance
       #
       # @return [TestData]
@@ -22,7 +21,7 @@ module TheArrayComparator
             @data << @dataset.stripe_of_keywords
           end
 
-          #put the rest into the output
+          # put the rest into the output
           @data.concat @dataset.raw_data
         end
 

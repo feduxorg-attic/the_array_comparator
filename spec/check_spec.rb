@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Check do
+describe TheArrayComparator::Check do
   strategy_klass = Class.new do
     def success?
       true
@@ -10,21 +10,21 @@ describe Check do
     end
   end
 
-  sample_klass = Class.new {; }
+  sample_klass = Class.new
 
-  it "add a sample and a comparator" do
+  it 'add a sample and a comparator' do
     Check.new(strategy_klass, sample_klass.new)
   end
 
-  it "is true if the check is successfull" do
-    check = Check.new(strategy_klass, sample_klass.new)
+  it 'is true if the check is successfull' do
+    check = TheArrayComparator::Check.new(strategy_klass, sample_klass.new)
     result = check.success?
     expect(result).to eq(true)
   end
 
-  it "is able to return the sample of the check" do
+  it 'is able to return the sample of the check' do
     sample = sample_klass.new
-    check = Check.new(strategy_klass, sample)
+    check = TheArrayComparator::Check.new(strategy_klass, sample)
     expect(check.sample).to eq(sample)
   end
 end

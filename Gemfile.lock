@@ -57,7 +57,7 @@ GEM
     domain_name (0.5.23)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
-    fedux_org-stdlib (0.7.33)
+    fedux_org-stdlib (0.11.16)
       activesupport
     ffaker (2.0.0)
     ffi (1.9.8)
@@ -194,7 +194,7 @@ DEPENDENCIES
   coveralls
   cucumber
   erubis
-  fedux_org-stdlib (~> 0.7.25)
+  fedux_org-stdlib (~> 0.11.0)
   ffaker
   filegen
   foreman

@@ -1,0 +1,2 @@
+require 'stringio'
+require 'tempfile'

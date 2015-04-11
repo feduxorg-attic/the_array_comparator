@@ -1,4 +1,4 @@
-#encoding: utf-8
+# encoding: utf-8
 
 # the main module
 module TheArrayComparator
@@ -30,10 +30,10 @@ module TheArrayComparator
     #
     # @param [String] tag (nil)
     #   a tag to identify a sample
-    def initialize(data=[],keywords=Set.new,exceptions=Set.new,tag=nil)
-      @keywords = Set.new( [ *keywords ] )
+    def initialize(data = [], keywords = Set.new, exceptions = Set.new, tag = nil)
+      @keywords = Set.new([*keywords])
       @data = *data
-      @exceptions = Set.new( [ *exceptions ] )
+      @exceptions = Set.new([*exceptions])
       @tag = tag
     end
 
@@ -41,7 +41,7 @@ module TheArrayComparator
     #
     # @return [true,false] the result of check
     def blank?
-      @keywords.blank? and @data.blank? and @exceptions.blank? and @tag.blank?
+      @keywords.blank? && @data.blank? && @exceptions.blank? && @tag.blank?
     end
   end
 end

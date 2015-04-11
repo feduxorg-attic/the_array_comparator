@@ -1,10 +1,9 @@
-#encoding: utf-8
+# encoding: utf-8
 
 # the main module
 module TheArrayComparator
   # the main comparator shell class
   class StrategyDispatcher
-
     # Create strategy dispatcher
     def initialize
       @available_strategies = {}
@@ -16,7 +15,7 @@ module TheArrayComparator
       # @param [String, Symbol] name
       #   the name for the reader
       def strategy_reader(name)
-        raise Exceptions::UsedInternalKeyword,  "You tried to define a reader using an internal name , which is forbidden (your reader name: #{name}). Please choose another name. Thank you very much." if internal_keywords.include? name
+        fail Exceptions::UsedInternalKeyword,  "You tried to define a reader using an internal name , which is forbidden (your reader name: #{name}). Please choose another name. Thank you very much." if internal_keywords.include? name
 
         define_method name.to_sym do
           instance_variable_get :@available_strategies
@@ -35,11 +34,10 @@ module TheArrayComparator
           :each,
           :interal_keywords,
           :valid_strategy?,
-          :exception_if_not_implemented,
+          :exception_if_not_implemented
         ]
       end
     end
-
 
     # Register a new comparator strategy
     #
@@ -52,11 +50,11 @@ module TheArrayComparator
     # @raise user defined exception
     #   Raise exception if an incompatible strategy class is given. Please
     #   see #exception_to_raise_for_invalid_strategy for more information
-    def register(name,klass)
+    def register(name, klass)
       if valid_strategy? klass
         available_strategies[name.to_sym] = klass
       else
-        raise exception_to_raise_for_invalid_strategy, "Registering #{klass} failed. It does not support \"#{class_must_have_methods.join("-, ")}\"-method"
+        fail exception_to_raise_for_invalid_strategy, "Registering #{klass} failed. It does not support \"#{class_must_have_methods.join('-, ')}\"-method"
       end
     end
 
@@ -89,9 +87,9 @@ module TheArrayComparator
 
     private
 
-    #internal reader
+    # internal reader
     def available_strategies
-      @available_strategies or raise Exceptions::WrongUsageOfLibrary, "You forgot to call \"super()\" in your \"initialize\"-method of your strategy dispatcher #{self.class.name}"
+      @available_strategies || fail(Exceptions::WrongUsageOfLibrary, "You forgot to call \"super()\" in your \"initialize\"-method of your strategy dispatcher #{self.class.name}")
     end
 
     # Check if given klass is a valid
@@ -100,11 +98,10 @@ module TheArrayComparator
     end
 
     # There are methods to be
-    # implemented, raise an exception 
+    # implemented, raise an exception
     # if one forgot to implement them
     def exception_if_not_implemented(m)
-      raise Exceptions::MustHaveMethodNotImplemented, "You forgot to implement the must have method \"#{m}\" in your strategy dispatcher #{self.class.name}"
+      fail Exceptions::MustHaveMethodNotImplemented, "You forgot to implement the must have method \"#{m}\" in your strategy dispatcher #{self.class.name}"
     end
-
   end
 end
