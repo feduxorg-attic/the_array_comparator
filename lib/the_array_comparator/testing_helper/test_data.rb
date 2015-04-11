@@ -1,5 +1,6 @@
 module TheArrayComparator
   module TestingHelper
+    # Test Data
     class TestData
       # Create test data instance
       #

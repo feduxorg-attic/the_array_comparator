@@ -2,15 +2,6 @@
 require 'spec_helper'
 
 describe Comparator do
-  cache_klass = Class.new do
-    def success?
-      true
-    end
-
-    def initialize(_sample = nil)
-    end
-  end
-
   it 'let you add check to check for' do
     testrun = Comparator.new
     data = %w(a b c d)
@@ -65,7 +56,6 @@ describe Comparator do
     comparator = Comparator.new
     data = %w(a b c d)
     keyword_overlap = %w(a)
-    keyword_no_overlap = %w(e)
 
     comparator.add_check data, :contains_all, keyword_overlap # should not fail
     comparator.add_check data, :not_contains, keyword_overlap # should fail
@@ -169,7 +159,7 @@ describe Comparator do
   it 'tells you the result of the check although no checks were added' do
     comparator = Comparator.new
     comparator.success?
-    result = comparator.result
+    comparator.result
     expect(comparator.success?).to eq(true)
   end
 

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 # the main module
 module TheArrayComparator
   # the main comparator shell class
@@ -15,7 +13,8 @@ module TheArrayComparator
       # @param [String, Symbol] name
       #   the name for the reader
       def strategy_reader(name)
-        fail Exceptions::UsedInternalKeyword,  "You tried to define a reader using an internal name , which is forbidden (your reader name: #{name}). Please choose another name. Thank you very much." if internal_keywords.include? name
+        message = %(You tried to define a reader using an internal name , which is forbidden (your reader name: #{name}). Please choose another name. Thank you very much.)
+        fail Exceptions::UsedInternalKeyword,  message if internal_keywords.include? name
 
         define_method name.to_sym do
           instance_variable_get :@available_strategies

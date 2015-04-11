@@ -24,7 +24,7 @@ module TheArrayComparator
         count_of_data: 100
       }.merge options
 
-      raw_data = options[:raw_data] || Faker::Lorem.sentences(opts[:count_of_data])
+      raw_data = options[:raw_data] || FFaker::Lorem.sentences(opts[:count_of_data])
       dataset = DataSet.new(options[:keywords], raw_data)
 
       testdata = TestData.new(dataset)
@@ -33,6 +33,7 @@ module TheArrayComparator
   end
 end
 
+# Kernel
 module Kernel
   #
   # Captures the given stream and returns it:

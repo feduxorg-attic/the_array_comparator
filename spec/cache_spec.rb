@@ -13,7 +13,6 @@ describe Cache do
 
   it 'fails if an unknown cache strategy is given' do
     cache = Cache.new
-    data = %w(a b c d)
 
     expect do
       cache.add(:test, :anonymous_cache_abc)
@@ -31,7 +30,6 @@ describe Cache do
   it 'returns the cache after adding it' do
     cache = Cache.new
     cache.add(:test, :anonymous_cache)
-    data = %w(a b c d)
 
     expect(cache[:test].class).to be(CachingStrategies::AnonymousCache)
   end

@@ -1,3 +1,4 @@
+# Sample
 class SampleDouble
   attr_accessor :data, :keywords, :exceptions, :tag
 
