@@ -1,14 +1,14 @@
 # The Array Comparator
 
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/maxmeyer/the_array_comparator)
-[![Build Status](https://travis-ci.org/maxmeyer/the_array_comparator.png?branch=master)](https://travis-ci.org/maxmeyer/the_array_comparator)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/fedux-org/the_array_comparator)
+[![Build Status](https://travis-ci.org/fedux-org/the_array_comparator.png?branch=master)](https://travis-ci.org/fedux-org/the_array_comparator)
 
 
 The Array Comparator lets you add multiple checks comparing two arrays each.
 This way it lets you write more concise tests and makes error detection in a
 commandline environment a lot easier -- [Use Cases](#use_cases). If you're
 interested, please have a look at the <a
-href="http://www.github.com/maxmeyer/the_array_comparator">git repository</a>.
+href="http://www.github.com/fedux-org/the_array_comparator">git repository</a>.
 
 
 
@@ -269,7 +269,7 @@ p comparator.success? #should be true
 ## Further reading
 
 Please see the full api-documentation on [rdoc
-info](http://rdoc.info/github/maxmeyer/the_array_comparator/frames) for further
+info](http://rdoc.info/github/fedux-org/the_array_comparator/frames) for further
 reading. There's also a brief [guide](API-GUIDE.md) about howto discover the
 API.
 
